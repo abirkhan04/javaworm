@@ -19,19 +19,14 @@ public class VerifyExample {
 	@Test
 	public void verifySetFirstNameMethodCalledWithExactArgument() {
 		Person mockedPerson = mock(Person.class);
-
 		mockedPerson.setFirstName("Abir");
-
 		verify(mockedPerson).setFirstName("Abir");
-
 	}
 
 	@Test
 	public void verifySetFirstNameMethodCalledWithAnyArgument() {
 		Person mockedPerson = mock(Person.class);
-
 		mockedPerson.setFirstName("Abir");
-
 		verify(mockedPerson).setFirstName(anyString());
 
 	}
@@ -45,7 +40,17 @@ public class VerifyExample {
 		mockedPerson.getFirstName();
 		mockedPerson.getFirstName();
 		verify(mockedPerson, atMost(3)).getFirstName();
-
+	}
+	
+	@Test
+	public void verifygetFirstNameMethodCalledForSeveralTimes() {
+		Person mockedPerson = mock(Person.class);
+		// when(mockedPerson.getFirstName()).thenReturn("Abir");
+		mockedPerson.setFirstName("Abir");
+		mockedPerson.getFirstName();
+		mockedPerson.getFirstName();
+		mockedPerson.getFirstName();
+		verify(mockedPerson, times(3)).getFirstName();
 	}
 
 	@Test
