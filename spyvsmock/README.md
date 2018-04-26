@@ -1,3 +1,3 @@
 # javaworm
 
-This project is to illustrate the comparison between junit spy and mock object.
+This project is to illustrate the similarity and difference between junit spy and mock object.
