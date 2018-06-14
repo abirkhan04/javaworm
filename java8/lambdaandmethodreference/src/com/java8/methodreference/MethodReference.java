@@ -6,8 +6,8 @@ import java.util.List;
 
 public class MethodReference {
 
-    List<Person> roster = Person.creatRoster();
-    Person[] rosterAsArray = roster.toArray(new Person[roster.size()]);
+    List<Person> roster = Person.createRoster();
+    Person[] rosterArray = roster.toArray(new Person[roster.size()]);
 
     public boolean traditionalSort() {
         // Traditional implementation of comparator
@@ -18,22 +18,22 @@ public class MethodReference {
             }
         }
 
-        Arrays.sort(rosterAsArray, new PersonAgeComparator());
+        Arrays.sort(rosterArray, new PersonAgeComparator());
 
-        return rosterAsArray[0].getAge() > rosterAsArray[1].getAge();
+        return rosterArray[0].getAge() > rosterArray[1].getAge();
     }
 
     public boolean lambdaSort() {
-        Arrays.sort(rosterAsArray, (a, b) -> {
+        Arrays.sort(rosterArray, (a, b) -> {
             return a.getBirthday()
                 .compareTo(b.getBirthday());
         });
-        return rosterAsArray[0].getAge() > rosterAsArray[1].getAge();
+        return rosterArray[0].getAge() > rosterArray[1].getAge();
     }
 
     public boolean methodReferenceSort() {
-        Arrays.sort(rosterAsArray, Person::compareByAge);
-        return rosterAsArray[0].getAge() > rosterAsArray[1].getAge();
+        Arrays.sort(rosterArray, Person::compareByAge);
+        return rosterArray[0].getAge() > rosterArray[1].getAge();
     }
 
 }

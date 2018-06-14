@@ -35,7 +35,7 @@ public class Person {
         return a.birthday.compareTo(b.birthday);
     }
     
-    public static List<Person> creatRoster(){
+    public static List<Person> createRoster(){
          List<Person> personList = new ArrayList<Person>();
          
          LocalDate birthDay1 = LocalDate.of(1987, Month.JANUARY, 1);
