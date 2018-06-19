@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+	xmlns:beans="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+           http://www.springframework.org/schema/security
+           http://www.springframework.org/schema/security/spring-security-4.2.xsd">
+
+
+   
+
+	<http auto-config='true'>
+		<intercept-url pattern="/**" access="hasRole('USER')" />
+		<form-login  default-target-url='/'
+		always-use-default-target='true' />
+	</http>
+
+
+ 
+
+	<authentication-manager>
+		<authentication-provider>
+			<user-service>
+				<user name="jimi" password="{noop}jimispass" authorities="ROLE_USER, ROLE_ADMIN" />
+				<user name="bob" password="{noop}bobspassword" authorities="ROLE_USER" />
+			</user-service>
+		</authentication-provider>
+	</authentication-manager>
+
+</beans:beans>
