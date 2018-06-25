@@ -8,9 +8,15 @@ import org.springframework.web.servlet.ModelAndView;
 public class SpringSecurityHelloWorld {
     
     @RequestMapping("/welcome")
-    public ModelAndView helloWorld() {
+    public ModelAndView helloWorld(){
     String message = "Hello World";
-    return new ModelAndView("welcome", "message", message);
-    
+    return new ModelAndView("welcome", "message", message); 
   }
+    
+    
+    @RequestMapping("/login")
+    public ModelAndView login() {
+    return new ModelAndView("login");
+  } 
+    
 }

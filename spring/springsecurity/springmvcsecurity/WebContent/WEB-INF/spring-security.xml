@@ -7,16 +7,20 @@
            http://www.springframework.org/schema/security/spring-security-4.2.xsd">
 
 
-   
-
-	<http auto-config='true'>
+	<http use-expressions="true">
+		<intercept-url pattern="/login*" access="permitAll" />
 		<intercept-url pattern="/**" access="hasRole('USER')" />
-		<form-login  default-target-url='/'
-		always-use-default-target='true' />
+
+
+		<form-login login-page='/login' default-target-url='/'
+			always-use-default-target='true' />
+			
+	     <logout delete-cookies="JSESSIONID" />
+			
+		<remember-me key="AnUniqueAndSecretKey" />
 	</http>
 
 
- 
 
 	<authentication-manager>
 		<authentication-provider>
