@@ -12,15 +12,11 @@ public class Oauth2ClientController {
 	public String helloFromJavaworm() {
 		return "Hi, I am from javaworm.com!";
 	}
-	
+
 	@GetMapping("/callback")
 	@ResponseBody
 	public String securedUrl() {
 		return "This url is secured.";
 	}
-	
-	
-	
-	
 
 }
