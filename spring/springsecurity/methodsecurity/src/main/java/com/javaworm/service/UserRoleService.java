@@ -8,8 +8,5 @@ public class UserRoleService {
 
 	@Autowired
 	UserRoleRepo userRoleRepo;
-	
-	
-	
 
 }
