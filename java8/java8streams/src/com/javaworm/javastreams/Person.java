@@ -1,4 +1,4 @@
-package com.javaworm.streams;
+package com.javaworm.javastreams;
 
 public class Person {
 
