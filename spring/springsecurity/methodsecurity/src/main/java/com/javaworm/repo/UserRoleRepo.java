@@ -38,7 +38,14 @@ public class UserRoleRepo {
 		} else {
 			throw new UserNotFoundException("User Cannot be found");
 		}
+	}
 
+	public boolean isValidUsername(String username) {
+		return USER_MAP.containsKey(username);
+	}
+
+	public boolean isValidRole(String roleName) {
+		return roleName.startsWith("ROLE_");
 	}
 
 }
