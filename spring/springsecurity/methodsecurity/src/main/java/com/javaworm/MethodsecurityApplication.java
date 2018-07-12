@@ -1,10 +1,10 @@
-package com.javaworm.methodsecurity;
+package com.javaworm;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 
-@SpringBootApplication(exclude = {SecurityAutoConfiguration.class })
+@SpringBootApplication(exclude = {SecurityAutoConfiguration.class }, scanBasePackages = "com.javaworm")
 public class MethodsecurityApplication {
 
 	public static void main(String[] args) {
