@@ -29,7 +29,7 @@ public class UserRoleService {
     
     
     @Secured({ "ROLE_VIEWER" })
-    public boolean unAuthorizedForUser(String username) {
+    public boolean unAuthorizedForUserRole(String username) {
         return userRoleRepo.isValidUsername(username);
     }
 

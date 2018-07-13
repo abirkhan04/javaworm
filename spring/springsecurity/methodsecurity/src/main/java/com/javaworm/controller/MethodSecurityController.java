@@ -26,7 +26,7 @@ public class MethodSecurityController {
 		boolean isValid = userRoleService.isValidUsername(currentPrincipalName);
 
 		if (isValid) {
-			return "userName is present in the repository";
+			return "username is present in the repository";
 		} else {
 			return "username is not present in the repository";
 		}
@@ -40,15 +40,15 @@ public class MethodSecurityController {
 				.getAuthentication();
 		String currentPrincipalName = authentication.getName();
 
-		boolean isValid = userRoleService
-				.unAuthorizedForUser(currentPrincipalName);
+		userRoleService.unAuthorizedForUserRole(currentPrincipalName);
 
 		return "User is authorized";
 
 	}
 
-	@RequestMapping(value = "/**", method = RequestMethod.GET)
-	public @ResponseBody String randomEndpoint() {
-		return "Requested Resource is not found";
+	@RequestMapping(value = "/", method = RequestMethod.GET)
+	public @ResponseBody String homeEndpoint() {
+		return "Hello From Javaworm.com";
 	}
+
 }
