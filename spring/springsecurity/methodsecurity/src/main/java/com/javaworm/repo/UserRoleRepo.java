@@ -17,8 +17,8 @@ public class UserRoleRepo {
 	static Map<String, SiteUser> USER_MAP = new LinkedHashMap<String, SiteUser>();
 
 	static {
-		USER_MAP.put("Abir Khan", new SiteUser("abirkhan", "1234",
-				collectGrantedAuthorities("ROLE_USER", "ROLE_VIEWER")));
+		USER_MAP.put("abirkhan", new SiteUser("abirkhan", "1234",
+				collectGrantedAuthorities("ROLE_VIEWER")));
 		USER_MAP.put("Nazrul Islam", new SiteUser("nazrul", "1342",
 				collectGrantedAuthorities("ROLE_USER", "ROLE_VIEWER")));
 	}
