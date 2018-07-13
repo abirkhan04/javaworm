@@ -22,15 +22,12 @@ public class MethodSecurityController {
 		Authentication authentication = SecurityContextHolder.getContext()
 				.getAuthentication();
 		String currentPrincipalName = authentication.getName();
-
 		boolean isValid = userRoleService.isValidUsername(currentPrincipalName);
-
 		if (isValid) {
 			return "username is present in the repository";
 		} else {
 			return "username is not present in the repository";
 		}
-
 	}
 
 	@RequestMapping(value = "/testunauthorizeduser", method = RequestMethod.GET)
@@ -39,11 +36,9 @@ public class MethodSecurityController {
 		Authentication authentication = SecurityContextHolder.getContext()
 				.getAuthentication();
 		String currentPrincipalName = authentication.getName();
-
 		userRoleService.unAuthorizedForUserRole(currentPrincipalName);
 
 		return "User is authorized";
-
 	}
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
