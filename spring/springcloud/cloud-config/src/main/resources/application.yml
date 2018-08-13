@@ -1,0 +1,16 @@
+server:
+    port: 8888
+  
+spring:
+    cloud:
+      config:
+        enabled: false
+        server:
+          git:
+            uri: file:///C:/users/abirkhan04/config-repo
+security:
+  basic:
+    enabled: false
+  user:
+    name: abirkhan04
+    password: none
