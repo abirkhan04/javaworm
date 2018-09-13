@@ -22,7 +22,6 @@ public class CustomerService {
 
 	  
 	public String insertCustomer(String firstName, String lastName) {
-		// TODO Auto-generated method stu	
 		Customer customer = new Customer(firstName, lastName);
 		customerRepository.save(customer);		
 		return "Customer is Successfully Started";
@@ -30,19 +29,16 @@ public class CustomerService {
 
 
 	public Optional<Customer> finById(String Id) {
-		// TODO Auto-generated method stub
 		Long id = Long.valueOf(Id);
 		return customerRepository.findById(id);
 	}
 
 	public String updateCustomer(Customer customer) {
-		// TODO Auto-generated method stub
 		customerRepository.save(customer);
 		return "Customer is successfully updated.";
 	}
 
 	public String deleteCustomer(Customer customer) {
-		// TODO Auto-generated method stub
 		customerRepository.delete(customer);
 		return "Customer is successfully deleted.";
 	}

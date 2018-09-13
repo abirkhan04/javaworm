@@ -10,7 +10,10 @@ import javax.persistence.Table;
 @Entity
 @Table(name="customer")
 public class Customer {    
-	
+
+	    public Customer(){
+	    }
+
 	    @Id
 	    @GeneratedValue(strategy=GenerationType.AUTO)
 	    private Long id;
@@ -32,8 +35,6 @@ public class Customer {
 		}
 
 		private String lastName;
-
-	    protected Customer() {}
 
 	    public Customer(String firstName, String lastName) {
 	        this.firstName = firstName;
