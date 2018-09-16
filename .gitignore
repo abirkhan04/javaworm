@@ -1,4 +1,5 @@
 */bin/*
+/javascript/nodecrud/node_modules
 
 *.class
 
