@@ -12,7 +12,17 @@ import reactor.core.publisher.Mono;
 public class HelloWebFluxHandler {
 	public Mono<ServerResponse> hello(ServerRequest request) {
 		return ServerResponse.ok().contentType(MediaType.TEXT_PLAIN)
-			.body(BodyInserters.fromObject("Hello, From Spring Web Flux!"));
+				.body(BodyInserters.fromObject("Hello, From Spring Web Flux!"));
+	}
+
+	public Mono<ServerResponse> hello1(ServerRequest request) {
+		return ServerResponse.ok().contentType(MediaType.TEXT_PLAIN)
+				.body(BodyInserters.fromObject("Hello1, From Spring Web Flux!"));
+	}
+
+	public Mono<ServerResponse> hello2(ServerRequest request) {
+		String name = request.queryParam("name").get();
+		return ServerResponse.ok().contentType(MediaType.TEXT_PLAIN).body(BodyInserters.fromObject("Hello " + name));
 	}
 
 }
