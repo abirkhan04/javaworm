@@ -15,5 +15,4 @@ public class WebFluxClient {
 	public String getResult() {
 		return ">> result = " + result.flatMap(res -> res.bodyToMono(String.class)).block();
 	}
-
 }

@@ -1,0 +1,43 @@
+buildscript {
+	ext {
+	   springBootVersion = '2.1.1.RELEASE'
+	}
+	repositories {
+		maven { url = "http://repo.maven.apache.org/maven2" }
+	}
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+	}
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+
+group = 'com.javaworm'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = 1.9
+
+repositories {
+	maven { url = "http://repo.maven.apache.org/maven2" }
+}
+
+sourceSets {
+        main {
+                java {
+                        srcDirs= ["src/main/java"]
+                }
+                resources {
+                        srcDirs= ["src/main/resources"]
+                }
+        }
+}
+
+dependencies {                    
+    implementation('org.springframework.boot:spring-boot-starter-data-mongodb-reactive')
+    implementation('org.projectlombok:lombok:1.18.0')
+	implementation('org.springframework.boot:spring-boot-starter-webflux')
+	testImplementation('org.springframework.boot:spring-boot-starter-test')
+	testImplementation('io.projectreactor:reactor-test')
+}
