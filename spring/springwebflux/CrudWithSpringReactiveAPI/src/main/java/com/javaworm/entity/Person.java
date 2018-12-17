@@ -4,30 +4,30 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "Persons")
-public class Persons {
+public class Person {
 	/**
 	 *
 	 */
 	private static final long serialVersionUID = 1L;
 	@Id
-	Long id;
+	int id;
 	String name;
 	String age;
 
-	public Persons() {
+	public Person() {
 
 	}
 
-	public Persons(String name, String age) {
+	public Person(String name, String age) {
 		this.name = name;
 		this.age = age;
 	}
 
-	public Long getId() {
+	public int getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 
