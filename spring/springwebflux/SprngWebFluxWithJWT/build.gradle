@@ -1,9 +1,9 @@
 buildscript {
 	ext {
-	   springBootVersion = '2.1.1.RELEASE'
+		springBootVersion = '2.1.1.RELEASE'
 	}
 	repositories {
-		maven { url = "http://repo.maven.apache.org/maven2" }
+		mavenCentral()
 	}
 	dependencies {
 		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
@@ -17,26 +17,17 @@ apply plugin: 'io.spring.dependency-management'
 
 group = 'com.javaworm'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = 1.9
+sourceCompatibility = 1.8
 
 repositories {
-	maven { url = "http://repo.maven.apache.org/maven2" }
+	mavenCentral()
 }
 
-sourceSets {
-        main {
-                java {
-                        srcDirs= ["src/main/java"]
-                }
-                resources {
-                        srcDirs= ["src/main/resources"]
-                }
-        }
-}
 
 dependencies {
-    implementation('org.springframework.boot:spring-boot-starter-data-mongodb-reactive')
+	implementation('org.springframework.boot:spring-boot-starter-security')
 	implementation('org.springframework.boot:spring-boot-starter-webflux')
 	testImplementation('org.springframework.boot:spring-boot-starter-test')
 	testImplementation('io.projectreactor:reactor-test')
+	testImplementation('org.springframework.security:spring-security-test')
 }
