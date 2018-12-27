@@ -27,6 +27,9 @@ repositories {
 dependencies {
 	implementation('org.springframework.boot:spring-boot-starter-security')
 	implementation('org.springframework.boot:spring-boot-starter-webflux')
+	implementation('io.jsonwebtoken:jjwt-api:0.10.5')
+	runtime('io.jsonwebtoken:jjwt-impl:0.10.5')
+	runtime('io.jsonwebtoken:jjwt-jackson:0.10.5')
 	testImplementation('org.springframework.boot:spring-boot-starter-test')
 	testImplementation('io.projectreactor:reactor-test')
 	testImplementation('org.springframework.security:spring-security-test')

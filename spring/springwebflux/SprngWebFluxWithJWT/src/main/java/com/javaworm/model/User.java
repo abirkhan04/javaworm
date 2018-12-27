@@ -26,8 +26,9 @@ public class User implements UserDetails {
 		this.roles = roles;
 	}
 
-	public User(String username) {
+	public User(String username, String password) {
 		this.username = username;
+		this.password = password;
 	}
 
 	@SuppressWarnings("unchecked")
