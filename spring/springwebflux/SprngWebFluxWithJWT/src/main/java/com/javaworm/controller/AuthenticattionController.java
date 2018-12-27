@@ -17,7 +17,7 @@ import com.javaworm.util.PassEncoder;
 import reactor.core.publisher.Mono;
 
 @RestController
-public class AuthenticatedREST {
+public class AuthenticattionController {
 	
 	@Autowired
 	private JWTUtil jwtUtil;

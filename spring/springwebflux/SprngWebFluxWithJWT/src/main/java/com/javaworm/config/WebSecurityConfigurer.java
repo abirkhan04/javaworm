@@ -14,7 +14,7 @@ import com.javaworm.auth.SecurityContextRepository;
 
 @EnableWebFluxSecurity
 @EnableReactiveMethodSecurity
-public class WebSecurityConfig {
+public class WebSecurityConfigurer {
 
 	@Autowired
 	private AuthenticationManager authenticationManager;

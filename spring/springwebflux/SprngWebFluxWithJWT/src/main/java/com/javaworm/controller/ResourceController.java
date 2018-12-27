@@ -12,7 +12,7 @@ import reactor.core.publisher.Mono;
 
 @RestController
 @RequestMapping("/resource")
-public class ResourceREST {
+public class ResourceController {
 	@RequestMapping(value = "/user", method = RequestMethod.GET)
 	@PreAuthorize("hasRole('USER')")
 	public Mono<ResponseEntity<?>> user() {
