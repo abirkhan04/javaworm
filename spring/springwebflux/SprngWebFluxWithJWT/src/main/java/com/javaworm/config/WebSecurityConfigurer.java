@@ -11,30 +11,23 @@ import org.springframework.security.web.server.SecurityWebFilterChain;
 import com.javaworm.auth.AuthenticationManager;
 import com.javaworm.auth.SecurityContextRepository;
 
-
 @EnableWebFluxSecurity
 @EnableReactiveMethodSecurity
 public class WebSecurityConfigurer {
 
 	@Autowired
 	private AuthenticationManager authenticationManager;
-	
+
 	@Autowired
 	private SecurityContextRepository securityContextRepository;
 
 	@Bean
 	public SecurityWebFilterChain securitygWebFilterChain(ServerHttpSecurity http) {
-		return http.csrf().disable()
-				.formLogin().disable()
-				.httpBasic().disable()
-				.authenticationManager(authenticationManager)
-				.securityContextRepository(securityContextRepository)
-				.authorizeExchange()
-				.pathMatchers(HttpMethod.OPTIONS).permitAll()
-				.pathMatchers("/login").permitAll()
-				.anyExchange().authenticated()
-				.and().build();
-		
+		return http.csrf().disable().formLogin().disable().httpBasic().disable()
+				.authenticationManager(authenticationManager).securityContextRepository(securityContextRepository)
+				.authorizeExchange().pathMatchers(HttpMethod.OPTIONS).permitAll().pathMatchers("/login").permitAll()
+				.anyExchange().authenticated().and().build();
+
 	}
-	
+
 }

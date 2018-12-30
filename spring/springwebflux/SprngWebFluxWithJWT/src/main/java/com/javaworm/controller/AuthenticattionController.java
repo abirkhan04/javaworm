@@ -38,5 +38,4 @@ public class AuthenticattionController {
 			}
 		}).defaultIfEmpty(ResponseEntity.status(HttpStatus.UNAUTHORIZED).build());
 	}
-
 }
