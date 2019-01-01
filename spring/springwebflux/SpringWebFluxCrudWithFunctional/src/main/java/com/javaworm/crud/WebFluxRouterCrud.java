@@ -17,7 +17,11 @@ public class WebFluxRouterCrud {
 				.route(RequestPredicates.GET("/person").and(RequestPredicates.accept(MediaType.APPLICATION_JSON)),
 						handler::listAllPersons)
 				.andRoute(RequestPredicates.POST("/person").and(RequestPredicates.accept(MediaType.TEXT_PLAIN)),
-						handler::createPerson);
+						handler::createPerson)
+				.andRoute(RequestPredicates.PUT("/person/{id}").and(RequestPredicates.accept(MediaType.APPLICATION_JSON)), 
+						handler::updatePerson)
+				.andRoute(RequestPredicates.DELETE("/person/{id}").and(RequestPredicates.accept(MediaType.APPLICATION_JSON)), 
+						handler::deletePerson);
 	}
 
 }
