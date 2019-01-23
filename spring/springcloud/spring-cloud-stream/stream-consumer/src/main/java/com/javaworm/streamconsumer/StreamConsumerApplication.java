@@ -20,6 +20,6 @@ public class StreamConsumerApplication {
 
 	@StreamListener(Sink.INPUT)
 	public void handle(String message) {
-		System.out.println("Received: " + message);
+		logger.info("Received: " + message);
 	}
 }
