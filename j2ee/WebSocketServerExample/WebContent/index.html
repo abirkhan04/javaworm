@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Websocket Echo by JavaWorm</title>
+</head>
+<body>
+	<form>
+		<input id="message" type="text">
+		<input onclick="wsSendMessage();" value="Echo" type="button">
+		<input onclick="wsCloseConnection();" value="Disconnect" type="button">
+	</form>
+	<br>
+	<div id="echoText" style="width: 300px; height: 200px;"></div>
+	<script type="text/javascript">
+		var webSocket = new WebSocket("ws://localhost:8080/WebSocketServerExample/websocketendpoint");
+		var echoText = document.getElementById("echoText");
+		echoText.innerHTML = "";
+		var message = document.getElementById("message");
+		webSocket.onopen = (message)=>{ echoText.innerHTML += "Connected ... \n";};
+		webSocket.onmessage = (message)=>{ echoText.innerHTML += "Message received from  the server : " + message.data + "\n";};
+		webSocket.onclose = (message)=>{ echoText.innerHTML += "Disconnected \n";};
+		webSocket.onerror = (message)=>{ echoText.innerHTML += "Error ... \n";};
+		function wsOpen(message){
+			echoText.value += "Connected to receive message.. \n";
+		}
+		function wsSendMessage(){
+			webSocket.send(message.value);
+			echoText.value += "Message sent to the server : " + message.value + "\n";
+			message.value = "";
+		}
+		function wsCloseConnection(){
+			webSocket.close();
+		}
+
+	</script>
+</body>
+</html>
