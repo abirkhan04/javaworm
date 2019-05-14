@@ -7,7 +7,7 @@ spring:
         enabled: false
         server:
           git:
-            uri: file:///C:/users/abirkhan04/config-repo
+            uri: file:///C:/users/streamstech/config-repo
 security:
   basic:
     enabled: false

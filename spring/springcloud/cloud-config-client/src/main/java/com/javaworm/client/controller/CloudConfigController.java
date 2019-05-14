@@ -22,5 +22,13 @@ public class CloudConfigController {
 	 public String role(@PathVariable("name") String username) {
 	        return String.format("Hello!  You're %s and you are a(n) %s...\n", username, role);
 	    }
+	 
+	  @Value("${config.name}")
+	  String name = "World";
+
+	  @RequestMapping("/")
+	  public String home() {
+	    return "Hello " + name;
+	  }
 
 }

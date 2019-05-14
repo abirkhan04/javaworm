@@ -1,0 +1,26 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: cloudconfigclient
+
+spring:
+  profiles:
+    active: development
+
+spring:
+  cloud:
+    config:
+      uri: http://abirkhan04:none@localhost:8888
+
+spring:
+  cloud:
+    vault:
+      host: localhost
+      port: 8200
+      scheme: https
+      generic: enabled
+      ssl:
+        trust-store: classpath:/vault.jks
+        trust-store-password: changeit      

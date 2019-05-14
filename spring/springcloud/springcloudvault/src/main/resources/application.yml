@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: fakebank
+    
+    
+server:
+  port: 8200    
+    
+#  datasource:
+#    url: jdbc:mysql://localhost:3306/fakebank
