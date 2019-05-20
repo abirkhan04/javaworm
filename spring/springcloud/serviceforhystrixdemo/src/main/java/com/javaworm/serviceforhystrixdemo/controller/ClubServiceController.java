@@ -42,7 +42,7 @@ public class ClubServiceController {
     
     
     @RequestMapping(value = "/getClubDetails/{clubname}", method = RequestMethod.GET)
-    public List<Club> getStudents(@PathVariable String clubname) {
+    public List<Club> getClubs(@PathVariable String clubname) {
         System.out.println("Getting Student details for " + clubname);
  
         List<Club> clubList = clubDB.get(clubname);
