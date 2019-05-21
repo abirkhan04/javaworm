@@ -20,8 +20,6 @@ public class MyRestController {
     public String serverbackend(){
  
         String serverPort = environment.getProperty("local.server.port");
- 
- 
         return "From Server backend!!" + " Host : localhost " + " :: Port : " + serverPort;
     }
 
