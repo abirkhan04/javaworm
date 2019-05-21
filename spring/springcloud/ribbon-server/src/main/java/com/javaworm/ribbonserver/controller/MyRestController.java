@@ -12,19 +12,17 @@ public class MyRestController {
     Environment environment;
     
     @GetMapping("/")
-    public String health(){
-        return "I am Ok";
+    public String applicationhealth(){
+        return "I am working !";
     }
  
-    @GetMapping("/backend")
-    public String backend(){
-        System.out.println("Inside MyRestController::backend...");
+    @GetMapping("/hostport")
+    public String serverbackend(){
  
         String serverPort = environment.getProperty("local.server.port");
  
-        System.out.println("Port : " + serverPort);
  
-        return "Hello form Backend!!! " + " Host : localhost " + " :: Port : " + serverPort;
+        return "From Server backend!!" + " Host : localhost " + " :: Port : " + serverPort;
     }
 
 }
