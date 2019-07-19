@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 import com.javaworm.springbootdatajpa.model.Customer;
 import com.javaworm.springbootdatajpa.repository.CustomerRepository;
 
+import ch.qos.logback.core.net.SyslogOutputStream;
+
 
 @Service
 public class CustomerService {
@@ -21,10 +23,9 @@ public class CustomerService {
 	 }
 
 	  
-	public String insertCustomer(String firstName, String lastName) {
-		Customer customer = new Customer(firstName, lastName);
+	public String insertCustomer(Customer customer) {
 		customerRepository.save(customer);		
-		return "Customer is Successfully Started";
+		return "Customer is Successfully inserted";
 	}
 
 
@@ -42,4 +43,8 @@ public class CustomerService {
 		customerRepository.delete(customer);
 		return "Customer is successfully deleted.";
 	}
+	
+    public List<Customer> findCustomerByName(String firstName, String lastName) {
+    	return customerRepository.findByFirstNameAndLastName(firstName, lastName);
+    }
 }
