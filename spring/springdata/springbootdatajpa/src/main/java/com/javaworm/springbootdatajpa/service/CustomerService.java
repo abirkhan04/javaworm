@@ -9,9 +9,6 @@ import org.springframework.stereotype.Service;
 import com.javaworm.springbootdatajpa.model.Customer;
 import com.javaworm.springbootdatajpa.repository.CustomerRepository;
 
-import ch.qos.logback.core.net.SyslogOutputStream;
-
-
 @Service
 public class CustomerService {
 
