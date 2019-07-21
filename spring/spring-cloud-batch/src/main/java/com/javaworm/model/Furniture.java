@@ -5,6 +5,10 @@ public class Furniture {
     private String name;
     private String price;
 
+    public Furniture(){
+
+    }
+
     public Furniture(String name, String price) {
     	this.name = name;
     	this.price = price;

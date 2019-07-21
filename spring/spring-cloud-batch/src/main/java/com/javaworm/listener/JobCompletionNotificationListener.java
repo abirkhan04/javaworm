@@ -31,7 +31,7 @@ public class JobCompletionNotificationListener extends JobExecutionListenerSuppo
 				(rs, row) -> new Furniture(
 					rs.getString(1),
 					rs.getString(2))
-			).forEach(furniture -> log.info("Found <" + furniture + "> in the database."));
+			).forEach(furniture -> log.info("Found <" + furniture.getName() + "> in the database."));
 		}
 	}
 }

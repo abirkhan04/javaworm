@@ -17,7 +17,7 @@ public class FurnitureItemProcessor implements ItemProcessor<Furniture, Furnitur
 
 		final Furniture transformedFurniture = new Furniture(name, price);
 
-		log.info("Converting (" + furniture + ") into (" + transformedFurniture + ")");
+		log.info("Converting (" + furniture.getName() + ") into (" + transformedFurniture.getName() + ")");
 
 		return transformedFurniture;
 	}
