@@ -20,9 +20,9 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.jdbc.core.JdbcTemplate;
 
-import com.javaworm.itemprocessor.PersonItemProcessor;
+import com.javaworm.itemprocessor.FurnitureItemProcessor;
 import com.javaworm.listener.JobCompletionNotificationListener;
-import com.javaworm.model.Person;
+import com.javaworm.model.Furniture;
 
 @Configuration
 @EnableBatchProcessing
@@ -35,29 +35,29 @@ public class BatchConfiguration {
     public StepBuilderFactory stepBuilderFactory;
     
     @Bean
-    public FlatFileItemReader<Person> reader() {
-        return new FlatFileItemReaderBuilder<Person>()
-            .name("personItemReader")
+    public FlatFileItemReader<Furniture> reader() {
+        return new FlatFileItemReaderBuilder<Furniture>()
+            .name("furnitureItemReader")
             .resource(new ClassPathResource("sample-data.csv"))
             .delimited()
-            .names(new String[]{"firstName", "lastName"})
-            .fieldSetMapper(new BeanWrapperFieldSetMapper<Person>() {{
-                setTargetType(Person.class);
+            .names(new String[]{"name", "price"})
+            .fieldSetMapper(new BeanWrapperFieldSetMapper<Furniture>() {{
+                setTargetType(Furniture.class);
             }})
             .build();
     }
     
     
     @Bean
-    public PersonItemProcessor processor() {
-        return new PersonItemProcessor();
+    public FurnitureItemProcessor processor() {
+        return new FurnitureItemProcessor();
     }
 
     @Bean
-    public JdbcBatchItemWriter<Person> writer(DataSource dataSource) {
-        return new JdbcBatchItemWriterBuilder<Person>()
+    public JdbcBatchItemWriter<Furniture> writer(DataSource dataSource) {
+        return new JdbcBatchItemWriterBuilder<Furniture>()
             .itemSqlParameterSourceProvider(new BeanPropertyItemSqlParameterSourceProvider<>())
-            .sql("INSERT INTO people (first_name, last_name) VALUES (:firstName, :lastName)")
+            .sql("INSERT INTO furniture (name, price) VALUES (:name, :price)")
             .dataSource(dataSource)
             .build();
     }
@@ -74,9 +74,9 @@ public class BatchConfiguration {
     }
 
     @Bean
-    public Step step1(JdbcBatchItemWriter<Person> writer) {
+    public Step step1(JdbcBatchItemWriter<Furniture> writer) {
         return stepBuilderFactory.get("step1")
-            .<Person, Person> chunk(10)
+            .<Furniture, Furniture> chunk(10)
             .reader(reader())
             .processor(processor())
             .writer(writer)
@@ -87,6 +87,5 @@ public class BatchConfiguration {
     public JdbcTemplate jdbcTemplate(DataSource dataSource) {
         return new JdbcTemplate(dataSource);
     }
-
 
 }
