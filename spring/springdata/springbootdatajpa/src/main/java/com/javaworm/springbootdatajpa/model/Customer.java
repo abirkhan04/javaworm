@@ -18,6 +18,9 @@ public class Customer {
 	    @GeneratedValue(strategy=GenerationType.AUTO)
 	    private Long id;
 	    private String firstName;
+		private String lastName;
+		
+		
 	    public String getFirstName() {
 			return firstName;
 		}
@@ -33,8 +36,6 @@ public class Customer {
 		public void setLastName(String lastName) {
 			this.lastName = lastName;
 		}
-
-		private String lastName;
 
 	    public Customer(String firstName, String lastName) {
 	        this.firstName = firstName;

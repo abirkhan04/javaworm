@@ -3,14 +3,15 @@ package com.javaworm.springbootdatajpa.contoller;
 import java.util.List;
 import java.util.Optional;
 
+import javax.websocket.server.PathParam;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.javaworm.springbootdatajpa.model.Customer;
 import com.javaworm.springbootdatajpa.service.CustomerService;
 
@@ -29,11 +30,10 @@ public class CustomerController {
 		return customerService.findAllCustomer();
 	}
 	
-	@RequestMapping(value = "/insertcustomer/{fna"
-			+ "me}/{lname}", method = RequestMethod.GET)
-	public @ResponseBody String insertCustomer(@PathVariable("fname") String firstName,
-			@PathVariable("lname") String lastName) {
-		return customerService.insertCustomer(firstName, lastName);
+	@RequestMapping(value = "/insertcustomer", method = RequestMethod.POST)
+	public @ResponseBody String insertCustomer(@RequestBody Customer customer) {
+		System.out.println("customer-->"+customer.getFirstName());
+		return customerService.insertCustomer(customer);
 	}
 	
 	@RequestMapping(value = "/updatecustomer/{id}/{fname}/{lname}", method = RequestMethod.GET)
@@ -68,4 +68,10 @@ public class CustomerController {
 			return "Customer Not Found";
 		}
 	}
+	
+	@RequestMapping(value = "/findcustomerbyname/{firstname}/{lastname}", method = RequestMethod.GET)
+	public @ResponseBody List<Customer> getCustomerByName(@PathVariable("firstname") String firstName, @PathVariable("lastname") String lastName) {
+		return customerService.findCustomerByName(firstName, lastName);
+	}
+	
 }

@@ -1,0 +1,17 @@
+logging:
+  level: 
+    org:  
+      springframework: 
+        cloud: 
+          task: DEBUG
+spring: 
+  application:  
+    name: spring-cloud-task-demo 
+  datasource: 
+    url: jdbc:mysql://localhost:3306/springcloudtask
+    username: root
+    password: 
+    jpa: 
+      hibernate: 
+        ddl-auto: create
+hibernate.show_sql: true
