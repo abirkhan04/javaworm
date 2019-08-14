@@ -26,6 +26,7 @@ public class CustomerController {
 	@CacheEvict(value = "customers", allEntries = true)
 	@RequestMapping(value = "/allcustomer", method = RequestMethod.GET)
 	public @ResponseBody List<Customer> getAllCustomer() {
+		System.out.println("Invoked");
 		return customerService.findAllCustomer();
 	}
 	
