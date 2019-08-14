@@ -3,7 +3,10 @@ package com.javaworm.springbootdatajpa.service;
 import java.util.List;
 import java.util.Optional;
 
+import javax.persistence.Cacheable;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import com.javaworm.springbootdatajpa.model.Customer;
@@ -40,8 +43,10 @@ public class CustomerService {
 		customerRepository.delete(customer);
 		return "Customer is successfully deleted.";
 	}
-	
-    public List<Customer> findCustomerByName(String firstName, String lastName) {
+
+
+	public List<Customer> findCustomerByName(String firstName, String lastName) {
     	return customerRepository.findByFirstNameAndLastName(firstName, lastName);
     }
+    
 }

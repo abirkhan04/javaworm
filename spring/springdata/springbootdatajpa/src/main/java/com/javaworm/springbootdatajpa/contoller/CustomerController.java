@@ -3,9 +3,9 @@ package com.javaworm.springbootdatajpa.contoller;
 import java.util.List;
 import java.util.Optional;
 
-import javax.websocket.server.PathParam;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,8 +16,6 @@ import com.javaworm.springbootdatajpa.model.Customer;
 import com.javaworm.springbootdatajpa.service.CustomerService;
 
 
-
-
 @RestController
 public class CustomerController {
      
@@ -25,6 +23,7 @@ public class CustomerController {
 	@Autowired
 	CustomerService customerService;
 	
+	@CacheEvict(value = "customers", allEntries = true)
 	@RequestMapping(value = "/allcustomer", method = RequestMethod.GET)
 	public @ResponseBody List<Customer> getAllCustomer() {
 		return customerService.findAllCustomer();
@@ -39,8 +38,7 @@ public class CustomerController {
 	@RequestMapping(value = "/updatecustomer/{id}/{fname}/{lname}", method = RequestMethod.GET)
 	public @ResponseBody String updateCustomer(@PathVariable("id") String Id,
 			@PathVariable("fname") String fname, @PathVariable("lname") String lname) {
-		
-		
+	
 		Optional<Customer> customerOptional = customerService.finById(Id);
 		System.out.println("Id"+Id);
 		if(customerOptional.isPresent()){
@@ -53,8 +51,8 @@ public class CustomerController {
 			return "Customer Not Found";
 		}
 	}
-	
-	
+
+
 	@RequestMapping(value = "/deletecustomer/{id}", method = RequestMethod.GET)
 	public @ResponseBody String updateCustomer(@PathVariable("id") String Id) {
 		
@@ -69,9 +67,25 @@ public class CustomerController {
 		}
 	}
 	
+	@Cacheable("customers")
 	@RequestMapping(value = "/findcustomerbyname/{firstname}/{lastname}", method = RequestMethod.GET)
 	public @ResponseBody List<Customer> getCustomerByName(@PathVariable("firstname") String firstName, @PathVariable("lastname") String lastName) {
+		deliberateSlowingOfService(3000L);
 		return customerService.findCustomerByName(firstName, lastName);
 	}
 	
+	@Cacheable("Number")
+	private Integer getFixedNumber() {
+		return 10;
+	}
+	
+	private void deliberateSlowingOfService(Long time){
+    	try {
+    		System.out.println("Inside slowering");
+    		Thread.sleep(time);
+    	}catch(InterruptedException e) {
+             throw new IllegalStateException(e);    		
+    	}
+    }
+
 }
