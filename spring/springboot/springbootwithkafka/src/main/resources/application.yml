@@ -1,0 +1,8 @@
+spring: 
+  kafka:
+    bootstrapAddress: localhost:9092
+    producer: 
+      client-id: producer-1
+      retries: 3
+      acks: 1
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer      
