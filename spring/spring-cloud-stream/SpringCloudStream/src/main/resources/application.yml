@@ -1,0 +1,26 @@
+spring:
+  cloud:
+    stream:
+      bindings:
+        input:
+          destination: queue.processor.message
+          binder: local_rabbit  
+        output:
+          destination: queue.pretty.processor.messages
+          binder: local_rabbit
+        myInput: 
+          destination: queue.customprocessor.message
+          binder: local_rabbit
+        firstOutput: 
+          destination: queue.pretty.customprocessor.message
+          binder: local_rabbit    
+      binders:
+        local_rabbit:
+          type: rabbit
+          environment:
+            spring:
+              rabbitmq:
+                host: localhost
+                username: guest
+                password: guest
+                virtual-host: /
