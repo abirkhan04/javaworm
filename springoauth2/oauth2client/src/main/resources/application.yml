@@ -2,16 +2,13 @@ server:
   port: 8000
 contextPath: /
 
-
-
-
 security:
   oauth2:
     client:
-      clientId: 841c58c81aaf8e4707f1
-      clientSecret: 09ea29b4f9cb56b04caba28210a09c008c959ae0
-      accessTokenUri: https://github.com/login/oauth/access_token
-      userAuthorizationUri: https://github.com/login/oauth/authorize
-      clientAuthenticationScheme: form
+      clientId: grp-web-portal
+      clientSecret: 123456
+      accessTokenUri: http://inv.grp.gov.bd:8011/auth-service/sec/master/authentication/v1/login
+      #userAuthorizationUri: https://github.com/login/oauth/authorize
+      #clientAuthenticationScheme: form
     resource:
-      userInfoUri: https://api.github.com/user
+      #userInfoUri: https://api.github.com/user

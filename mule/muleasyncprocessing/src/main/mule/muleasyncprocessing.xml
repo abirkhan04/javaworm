@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:vm="http://www.mulesoft.org/schema/mule/vm" xmlns:java="http://www.mulesoft.org/schema/mule/java"
+	xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core"
+	xmlns:http="http://www.mulesoft.org/schema/mule/http" 
+	xmlns="http://www.mulesoft.org/schema/mule/core" 
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd
+http://www.mulesoft.org/schema/mule/java http://www.mulesoft.org/schema/mule/java/current/mule-java.xsd
+http://www.mulesoft.org/schema/mule/vm http://www.mulesoft.org/schema/mule/vm/current/mule-vm.xsd">
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="86d0bc68-786d-4eed-a1c9-909e4607a30c">
+		<http:listener-connection host="localhost" port="8081" />
+	</http:listener-config>
+	<http:listener-config name="HTTP_Listener_config1" doc:name="HTTP Listener config" doc:id="e0219816-e830-41b0-8fac-fef32dedab87" >
+		<http:listener-connection host="localhost" port="8082" />
+	</http:listener-config>
+	<http:request-config name="HTTP_Request_configuration" doc:name="HTTP Request configuration" doc:id="d5d7f7fc-46d0-4f74-be94-410e57b8a0d7" basePath="/async_message" >
+		<http:request-connection host="localhost" port="8081" />
+	</http:request-config>
+	<flow name="muleasyncprocessingFlow" doc:id="1c00f471-0c5d-4af0-b00f-571ccb64bf4c" >
+<!-- 	<java:new doc:name="New" doc:id="84be16dd-827b-488a-b087-9051fc808d35" class="com.javaworm.AppendPayload" constructor="AppendPayload()"/> -->
+ <http:listener doc:name="Listener" doc:id="9db01ca7-2abd-4468-bcbf-1c544e1cfece" config-ref="HTTP_Listener_config" path="async_message" />
+		<set-payload value="Payload for Async Message" doc:name="Set Payload" doc:id="1f125fa7-162d-47c5-9539-25aa966ffc7a" />
+		<logger level="INFO" doc:name="Logger" doc:id="c551b13b-5ce2-4c32-b93c-7cebfcdda89b" message="#[payload]"/>
+		<set-variable value="payload" doc:name="Set Variable" doc:id="28f1cf57-80f2-4aef-a425-84d41b9692ff" variableName="Variable 1" mimeType="application/yaml"/>
+		<flow-ref doc:name="Flow Reference" doc:id="e458a42e-71f7-470f-a9ca-b9c325651227" name="muleasyncprocessingSub_Flow" targetValue="payload"/>
+	</flow>
+	<sub-flow name="muleasyncprocessingSub_Flow" doc:id="a3e15c7c-cc6e-4263-a14d-484fbd04add2" >
+		<set-payload value="payload in Second flow" doc:name="Set Payload" doc:id="6a006cb2-3575-4257-a167-312e6be673d5" />
+		<async doc:name="Async" doc:id="6a64b9c9-dfbd-4350-807b-36bf3387a50f" >
+			<set-payload value="payload in Async flow" doc:name="Set Payload" doc:id="08389e43-a416-4755-985f-044f7d231754" />
+			<logger level="INFO" doc:name="Logger" doc:id="57b6d0ca-c22e-4c98-bf2a-a8ef3f5690b7" message="#[payload]"/>
+		</async>
+	</sub-flow>
+</mule>

@@ -1,9 +1,6 @@
-server:
-  port: 8080
-
 spring:
   application:
-    name: cloudconfigclient
+    name: payroll
   profiles:
     active: development
   cloud:
