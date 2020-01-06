@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:spring="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
+http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd">
+	<http:listener-config name="HTTP_Listener_Configuration" host="localhost" port="8081" doc:name="HTTP Listener Configuration"/>
+	<flow name="mulescattergatherFlow" >
+		<http:listener config-ref="HTTP_Listener_Configuration" path="/scatter_gather" doc:name="HTTP"/>
+		<set-payload value="Hello Scatter Gather Example"
+			doc:name="Set Payload"  />
+		<logger level="INFO" doc:name="Logger"
+			 message="#[payload]" />
+		<scatter-gather doc:name="Scatter-Gather">
+			<processor-chain>
+				<set-payload  doc:name="Set Payload" value="payload in flow 1"/>
+				<logger level="INFO" doc:name="Logger" message="#[payload]"/>
+			</processor-chain>
+			<processor-chain>
+				<set-payload value="Payload in flow 2" doc:name="Set Payload"/>
+				<logger level="INFO" doc:name="Logger" message="#[payload]"/>
+			</processor-chain>
+		</scatter-gather>
+		<set-payload value="#[payload[0]+' And '+payload[1]]" doc:name="Set Payload"/>
+		<custom-transformer class="com.javaworm.transformer.CombinedPayloadTransformer" doc:name="Java"/>
+		<logger level="INFO" doc:name="Logger"
+			 message="#[payload]" />
+	</flow>
+</mule>
