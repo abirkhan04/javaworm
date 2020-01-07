@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:jms="http://www.mulesoft.org/schema/mule/jms"
+	xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:spring="http://www.springframework.org/schema/beans" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.mulesoft.org/schema/mule/jms http://www.mulesoft.org/schema/mule/jms/current/mule-jms.xsd
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
+http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
+ <jms:activemq-connector name="Active_MQ" brokerURL="tcp://localhost:61616" validateConnections="true" doc:name="Active MQ"/>
+    <http:request-config name="HTTP_request_Configuration" host="localhost"
+port="8081" doc:name="HTTP Request Configuration"/>
+
+    <flow name="makeReservation" >
+        <jms:inbound-endpoint queue="ticketAssignment" connector-ref="Active_MQ" doc:name="Ticket assignment queue"/>
+        <enricher target="#[flowVars['ticketInfo']]" doc:name="Ticket assignment variable">
+            <http:request config-ref="HTTP_request_Configuration" path="ticketService" method="GET" doc:name="Seat assigment web service"/>
+        </enricher>
+        <set-property propertyName="ticketInfo" value="#[flowVars['ticketInfo'].getSeatNumber()]" doc:name="Set ticketInfo jms property"/>
+        <jms:outbound-endpoint queue="checkin" connector-ref="Active_MQ" doc:name="Check-In queue"/>
+        <catch-exception-strategy doc:name="Catch Exception Strategy">
+            <set-property propertyName="seatInfo" value="No ticket info available" doc:name="Set ticketInfo JMS property"/>
+            <jms:outbound-endpoint queue="checkin" connector-ref="Active_MQ" doc:name="Check-In queue"/>
+        </catch-exception-strategy>
+    </flow>
+</mule>
