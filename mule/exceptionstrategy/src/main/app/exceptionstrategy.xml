@@ -19,6 +19,7 @@ port="8081" doc:name="HTTP Request Configuration"/>
         <http:listener config-ref="HTTP_Listener_Configuration" path="/test" doc:name="HTTP"/>
 		<http:request config-ref="HTTP_request_Configuration" path="ticketService" method="GET" doc:name="Ticket web service"/>
 		<object-to-string-transformer doc:name="Object to String"/>
+		<custom-transformer encoding="windows-1256" class="com.javaworm.transformer.PayloadTransformer" doc:name="Java"/>
 		<dw:transform-message doc:name="Transform Message">
 			<dw:set-payload><![CDATA[%dw 1.0
 %output application/java
@@ -36,9 +37,19 @@ port="8081" doc:name="HTTP Request Configuration"/>
 		<set-payload doc:name="Set Payload" value="#[flowVars.flowVariable1]"/>
 		<logger message="Logged Payload: #[payload]" level="INFO" doc:name="Logger"/>
         <catch-exception-strategy doc:name="Catch Exception Strategy">
-			<set-variable variableName="LoggerFlowVariable" value="Ticket is not available" doc:name="Logger Flow Variable"/>
-			<set-payload value="#[flowVars.LoggerFlowVariable]" doc:name="Set Failure Message"/>
-			<logger message="Logged in Exception" level="INFO" doc:name="Logger"/>
+			<choice doc:name="Choice">
+			<when expression="#[exception.causedBy(java.net.ConnectException)]" >
+				<set-payload value="Service Unavailable!" doc:name="Service Unavailable" />
+			</when>
+			<when expression="#[exception.causedBy(java.lang.NullPointerException)]" >
+				<set-payload value="Invalid ticket" doc:name="Number Format Exception" />
+			</when>
+			<otherwise>
+				<set-payload value="Ticket is not available" doc:name="Ticket is not available"/>
+			</otherwise>
+			</choice>
+
+			<logger message="Logged in Exception #[payload]" level="INFO" doc:name="Logger"/>
 
         </catch-exception-strategy>
     </flow>
