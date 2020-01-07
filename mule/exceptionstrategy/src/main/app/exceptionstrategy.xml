@@ -1,27 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<mule xmlns:jms="http://www.mulesoft.org/schema/mule/jms"
+<mule xmlns:dw="http://www.mulesoft.org/schema/mule/ee/dw" xmlns:json="http://www.mulesoft.org/schema/mule/json" xmlns:jbossts="http://www.mulesoft.org/schema/mule/jbossts" xmlns:jms="http://www.mulesoft.org/schema/mule/jms"
 	xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
 	xmlns:spring="http://www.springframework.org/schema/beans" 
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.mulesoft.org/schema/mule/jms http://www.mulesoft.org/schema/mule/jms/current/mule-jms.xsd
 http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
 http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
-http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
- <jms:activemq-connector name="Active_MQ" brokerURL="tcp://localhost:61616" validateConnections="true" doc:name="Active MQ"/>
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/jbossts http://www.mulesoft.org/schema/mule/jbossts/current/mule-jbossts.xsd
+http://www.mulesoft.org/schema/mule/json http://www.mulesoft.org/schema/mule/json/current/mule-json.xsd
+http://www.mulesoft.org/schema/mule/ee/dw http://www.mulesoft.org/schema/mule/ee/dw/current/dw.xsd">
     <http:request-config name="HTTP_request_Configuration" host="localhost"
 port="8081" doc:name="HTTP Request Configuration"/>
-
+	<http:listener-config name="HTTP_Listener_Configuration" host="localhost" port="8082" doc:name="HTTP Listener Configuration"/>
+	<jms:activemq-connector name="Active_MQ" specification="1.1" brokerURL="tcp://localhost:61616" validateConnections="true" doc:name="Active MQ" password="admin" username="admin"/>
     <flow name="makeReservation" >
-        <jms:inbound-endpoint queue="ticketAssignment" connector-ref="Active_MQ" doc:name="Ticket assignment queue"/>
-        <enricher target="#[flowVars['ticketInfo']]" doc:name="Ticket assignment variable">
-            <http:request config-ref="HTTP_request_Configuration" path="ticketService" method="GET" doc:name="Seat assigment web service"/>
-        </enricher>
-        <set-property propertyName="ticketInfo" value="#[flowVars['ticketInfo'].getSeatNumber()]" doc:name="Set ticketInfo jms property"/>
-        <jms:outbound-endpoint queue="checkin" connector-ref="Active_MQ" doc:name="Check-In queue"/>
+        <http:listener config-ref="HTTP_Listener_Configuration" path="/test" doc:name="HTTP"/>
+		<http:request config-ref="HTTP_request_Configuration" path="ticketService" method="GET" doc:name="Ticket web service"/>
+		<object-to-string-transformer doc:name="Object to String"/>
+		<dw:transform-message doc:name="Transform Message">
+			<dw:set-payload><![CDATA[%dw 1.0
+%output application/java
+---
+{
+	price : payload
+}]]></dw:set-payload>
+		</dw:transform-message>
+		<logger message="#[payload]" level="INFO" doc:name="Logger"/>
+		<set-variable variableName="flowVariable1" value="Price of item: #[payload.price]" doc:name="Get Ticket Price"/>
+		<logger message="#[payload]" level="INFO" doc:name="Logger"/>
+		<jms:outbound-endpoint connector-ref="Active_MQ" doc:name="JMS" queue="test">
+			<jms:transaction action="ALWAYS_BEGIN" timeout="3000"/>
+		</jms:outbound-endpoint>
+		<set-payload doc:name="Set Payload" value="#[flowVars.flowVariable1]"/>
+		<logger message="Logged Payload: #[payload]" level="INFO" doc:name="Logger"/>
         <catch-exception-strategy doc:name="Catch Exception Strategy">
-            <set-property propertyName="seatInfo" value="No ticket info available" doc:name="Set ticketInfo JMS property"/>
-            <jms:outbound-endpoint queue="checkin" connector-ref="Active_MQ" doc:name="Check-In queue"/>
+			<set-variable variableName="LoggerFlowVariable" value="Ticket is not available" doc:name="Logger Flow Variable"/>
+			<set-payload value="#[flowVars.LoggerFlowVariable]" doc:name="Set Failure Message"/>
+			<logger message="Logged in Exception" level="INFO" doc:name="Logger"/>
+
         </catch-exception-strategy>
     </flow>
 </mule>
