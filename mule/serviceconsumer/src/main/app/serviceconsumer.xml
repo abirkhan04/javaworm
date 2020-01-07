@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:mulexml="http://www.mulesoft.org/schema/mule/xml"
+	xmlns:ws="http://www.mulesoft.org/schema/mule/ws" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:spring="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.mulesoft.org/schema/mule/xml http://www.mulesoft.org/schema/mule/xml/current/mule-xml.xsd
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
+http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/ws http://www.mulesoft.org/schema/mule/ws/current/mule-ws.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
+		<mulexml:namespace-manager
+		includeConfigNamespaces="false">
+		<mulexml:namespace prefix="ns2"
+			uri="http://service.javaworm.com/" />
+		<mulexml:namespace prefix="soap"
+			uri="http://schemas.xmlsoap.org/soap/envelope/" />
+	</mulexml:namespace-manager>
+
+	<http:listener-config name="HTTP_Listener_Configuration" host="localhost" port="8082" doc:name="HTTP Listener Configuration"/>
+	<ws:consumer-config name="Web_Service_Consumer" wsdlLocation="http://localhost:8081/test?wsdl" service="ITicketServiceService" port="ITicketServicePort" serviceAddress="http://localhost:8081/test" doc:name="Web Service Consumer"/>
+	<flow name="serviceconsumerFlow">
+		<http:listener config-ref="HTTP_Listener_Configuration" path="/consumer_test" doc:name="HTTP"/>
+		<ws:consumer config-ref="Web_Service_Consumer" operation="ticketPrice" doc:name="Web Service Consumer"/>
+		<logger message="#[xpath://ns2:ticketPriceResponse/return]" level="INFO" doc:name="Logger"/>
+		<response>
+			<set-payload value="#[xpath://ns2:ticketPriceResponse/return]" doc:name="Set Payload"/>
+		</response>
+	</flow>
+</mule>
