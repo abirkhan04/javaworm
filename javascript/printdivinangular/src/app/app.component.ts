@@ -16,7 +16,6 @@ export class AppComponent implements OnInit {
   public ngOnInit(): void {
       this.http.get('assets/css/printeddiv.css', { responseType: 'text' }).subscribe((response) => {
         this.styles = response;
-        console.log('styles--->', this.styles);
       });
   }
 
