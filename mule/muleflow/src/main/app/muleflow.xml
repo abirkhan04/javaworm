@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:vm="http://www.mulesoft.org/schema/mule/vm" xmlns:batch="http://www.mulesoft.org/schema/mule/batch" xmlns:tracking="http://www.mulesoft.org/schema/mule/ee/tracking" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:spring="http://www.springframework.org/schema/beans" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
+http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/ee/tracking http://www.mulesoft.org/schema/mule/ee/tracking/current/mule-tracking-ee.xsd
+http://www.mulesoft.org/schema/mule/vm http://www.mulesoft.org/schema/mule/vm/current/mule-vm.xsd
+http://www.mulesoft.org/schema/mule/batch http://www.mulesoft.org/schema/mule/batch/current/mule-batch.xsd">
+	<http:listener-config name="HTTP_Listener_Configuration" host="0.0.0.0" port="8081" doc:name="HTTP Listener Configuration"/>
+	<flow name="muleflowFlow">
+		<http:listener config-ref="HTTP_Listener_Configuration" path="/test" doc:name="HTTP"/>
+		<set-session-variable variableName="S1" value="#['Session Variable 1']" doc:name="Session Variable"/>
+		<set-variable variableName="F1" value="#['flow variable 1']" doc:name="Variable"/>
+		<custom-transformer class="muleflow.PayloadTransformer" doc:name="Java"/>
+		<set-payload value="#['Test Payload']" doc:name="Set Payload"/>
+		<logger message="#['Session Variable' + sessionVars.S1 + 'Flow variable'  + flowVars.F1 ]" level="INFO" doc:name="Logger"/>
+		<async doc:name="Async">
+			<set-payload value="#['Payload in Async flow']" doc:name="Set Payload"/>
+			<logger message="#[payload]" level="INFO" doc:name="Logger"/>
+		</async>
+		<logger message="#[message]" level="INFO" doc:name="Logger"/>
+		<vm:outbound-endpoint exchange-pattern="request-response" path="vm2" doc:name="VM1"/>
+	</flow>
+	<flow name="referred-flow">
+		<vm:inbound-endpoint exchange-pattern="request-response" path="vm2" doc:name="VM"/>
+		<set-payload value="#['payload in second flow']" doc:name="Set Payload"/>
+		<set-session-variable variableName="S2" value="#['Session Variable 2']" doc:name="Session Variable"/>
+		<set-variable variableName="F2" value="#['Flow Variable 2']" doc:name="F2"/>
+		<custom-transformer class="muleflow.InboundPropertyCheck" doc:name="Java"/>
+		<logger message="#['S1' + sessionVars.S1 + 'S2' + sessionVars.S2 + 'F1'+ flowVars.F1 + 'F2'+flowVars.F2]" level="INFO" doc:name="Logger"/>
+	</flow>
+</mule>
