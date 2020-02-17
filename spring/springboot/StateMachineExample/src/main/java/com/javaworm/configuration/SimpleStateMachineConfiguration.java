@@ -25,17 +25,12 @@ public class SimpleStateMachineConfiguration extends EnumStateMachineConfigurerA
 	public void configure(StateMachineStateConfigurer<States, Events> states) throws Exception {
 		states.withStates().initial(States.SI).states(EnumSet.allOf(States.class));
 	}
-	
-    @Override
-    public void configure(StateMachineTransitionConfigurer<States, Events> transitions)
-            throws Exception {
-        transitions
-            .withExternal()
-                .source(States.SI).target(States.S1).event(Events.E1)
-                .and()
-            .withExternal()
-                .source(States.S1).target(States.S2).event(Events.E2);
-    }
+
+	@Override
+	public void configure(StateMachineTransitionConfigurer<States, Events> transitions) throws Exception {
+		transitions.withExternal().source(States.SI).target(States.S1).event(Events.E1).and().withExternal()
+				.source(States.S1).target(States.S2).event(Events.E2);
+	}
 
 	@Bean
 	public StateMachineListener<States, Events> listener() {

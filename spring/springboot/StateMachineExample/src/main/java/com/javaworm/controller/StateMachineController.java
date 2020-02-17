@@ -15,7 +15,7 @@ public class StateMachineController {
 	@Autowired
 	private StateMachine<States, Events> stateMachine;
 
-	@GetMapping(value="currentState")
+	@GetMapping(value = "currentState")
 	public @ResponseBody String currentState() {
 		stateMachine.sendEvent(Events.E1);
 		return stateMachine.getState().toString();

@@ -5,12 +5,11 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.statemachine.StateMachine;
-
 import com.javaworm.configuration.Events;
 import com.javaworm.configuration.States;
 
 @SpringBootApplication
-public class StateMachineApplication implements CommandLineRunner{
+public class StateMachineApplication implements CommandLineRunner {
 
 	@Autowired
 	private StateMachine<States, Events> stateMachine;
