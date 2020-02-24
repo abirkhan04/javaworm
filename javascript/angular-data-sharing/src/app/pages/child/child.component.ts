@@ -8,6 +8,8 @@ import { TestClass } from '../app-interface';
 })
 export class ChildComponent {
 
+  // tslint:disable-next-line: no-inferrable-types
+  public item: string = 'Test Through container';
   @Input() public inputObject: TestClass;
   @Output() public dataSharingEvent: EventEmitter<any> = new EventEmitter<any>();
   constructor() { }

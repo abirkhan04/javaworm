@@ -1,4 +1,4 @@
 <app-child [inputObject]="testObject" (dataSharingEvent)="getChildData($event)"></app-child>
 <ng-container *ngIf="childItem">
-    <p>From child items: {{childItem.data}}</p>
+    <p>From child items: {{childItem.data}} and {{childItemThroughContainer}}</p>
 </ng-container>
