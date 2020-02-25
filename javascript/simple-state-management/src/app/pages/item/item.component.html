@@ -1,0 +1,6 @@
+<p>Items are here.</p>
+<p *ngFor="let item of items">
+        {{item.id}} : {{item.name}} <button (click)="delete(item.id)">Delete</button> <button (click)="edit(item)">Edit</button>
+</p>
+<p *ngIf="itemOnEdit"><input type="text" [(ngModel)]="itemOnEdit.name"/><button (click)="Save()">Save</button></p>
+<button (click)="addItem()">Add Item</button>
