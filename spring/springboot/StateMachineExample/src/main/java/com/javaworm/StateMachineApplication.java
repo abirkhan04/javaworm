@@ -20,8 +20,7 @@ public class StateMachineApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		// TODO Auto-generated method stub
-		stateMachine.sendEvent(Events.E1);
-		stateMachine.sendEvent(Events.E2);
+		stateMachine.sendEvent(Events.Event1);
+		stateMachine.sendEvent(Events.Event2);
 	}
 }

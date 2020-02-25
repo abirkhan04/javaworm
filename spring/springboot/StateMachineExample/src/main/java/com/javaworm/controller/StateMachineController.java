@@ -5,7 +5,6 @@ import org.springframework.statemachine.StateMachine;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.javaworm.configuration.Events;
 import com.javaworm.configuration.States;
 
@@ -17,7 +16,7 @@ public class StateMachineController {
 
 	@GetMapping(value = "currentState")
 	public @ResponseBody String currentState() {
-		stateMachine.sendEvent(Events.E1);
+		stateMachine.sendEvent(Events.Event1);
 		return stateMachine.getState().toString();
 	}
 
