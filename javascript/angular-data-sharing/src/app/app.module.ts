@@ -8,7 +8,8 @@ import { ChildComponent } from './pages/child/child.component';
 import { RouterModule, Routes } from '@angular/router';
 import { Parent2Component } from './pages/parent2/parent2.component';
 
-const routes: Routes = [ {path: '', component: ParentComponent},
+const routes: Routes = [
+  {path: '', component: ParentComponent},
   {path: 'parent2', component: Parent2Component }]
 
 @NgModule({
