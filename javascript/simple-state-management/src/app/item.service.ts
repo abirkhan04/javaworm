@@ -20,7 +20,7 @@ export class ItemService {
   }
 
   public deleteItem(id: string) : Observable<Item[]> {
-    this.items = this.items.splice(this.items.findIndex((item)=> { item.id === id}), 0 );
+    this.items.splice(this.items.findIndex((item)=> item.id === id), 1 );
     return of(this.items);
   }
 

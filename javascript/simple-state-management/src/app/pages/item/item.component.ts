@@ -33,7 +33,6 @@ export class ItemComponent implements OnInit {
   public delete(id: string) : void {
     this.itemService.deleteItem(id).subscribe((items: Item[])=>{
         this.items = items;
-        this.changeDetector.detectChanges();
     });
   }
 
