@@ -6,7 +6,7 @@ import { Observable, of, BehaviorSubject } from 'rxjs';
 })
 export class ItemService {
 
-  public behaviourItems: BehaviorSubject<Item[]> = new BehaviorSubject<Item[]>([]);
+  public readonly behaviourItems: BehaviorSubject<Item[]> = new BehaviorSubject<Item[]>([]);
 
   constructor() { }
 
