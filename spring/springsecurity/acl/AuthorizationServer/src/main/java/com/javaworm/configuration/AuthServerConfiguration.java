@@ -27,13 +27,17 @@ public class AuthServerConfiguration extends AuthorizationServerConfigurerAdapte
 
 	@Override
 	public void configure(AuthorizationServerSecurityConfigurer oauthServer) throws Exception {
-		oauthServer.tokenKeyAccess("permitAll()").checkTokenAccess("isAuthenticated()");
+		oauthServer.tokenKeyAccess("permitAll()").checkTokenAccess("isAuthenticated()")
+				.allowFormAuthenticationForClients();
 	}
 
 	@Override
 	public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
-		clients.inMemory().withClient(ClientID).secret(passwordEncoder.encode("test"))
-				.authorizedGrantTypes("authorization_code").scopes("user_info").autoApprove(true)
+		System.out.println("client id here -->" + ClientID);
+		clients.inMemory().withClient(ClientID).secret(passwordEncoder.encode(ClientSecret))
+				.authorizedGrantTypes("client_credentials", "authorization_code", "refresh_token")
+				.resourceIds("oauth2-resource")
+				.scopes("user_info")
 				.redirectUris(RedirectURLs);
 	}
 
