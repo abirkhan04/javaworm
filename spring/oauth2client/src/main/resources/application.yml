@@ -1,0 +1,19 @@
+server:
+  port: 8080
+
+security:
+  basic:
+    enabled: false
+  oauth2:
+    client:
+      clientId: clientapp
+      clientSecret: 123456
+      response_type: code
+      scope: user_info
+      userAuthorizationUri: http://localhost:8081/oauth/authorize
+      accessTokenUri: http://localhost:8081/oauth/token
+      clientAuthenticationScheme: form
+      preEstablishedRedirectUri: http://localhost:8080/login/oauth2/code
+      useCurrentUri: false
+    resource:
+      userInfoUri: http://localhost:8081/api/user/me
