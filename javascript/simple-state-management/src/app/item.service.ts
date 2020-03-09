@@ -32,7 +32,6 @@ export class ItemService {
     items.find((item) => item.id === updatedItem.id)[0] = updatedItem;
     return this.behaviourItems;
   }
-
 }
 
 export interface Item {

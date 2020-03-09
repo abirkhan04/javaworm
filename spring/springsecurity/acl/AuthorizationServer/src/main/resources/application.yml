@@ -1,0 +1,13 @@
+server:
+  port: 8081
+  servlet:
+    context-Path: /auth
+
+user:
+  oauth:
+    clientId: R2dpxQ3vPrtfgF72
+    clientSecret: fDw7Mpkk5czHNuSRtmhGmAGL42CaxQB9
+    redirectUris: http://localhost:8082/login/oauth2/code/
+    user:
+      username: Abir
+      password: Khan
