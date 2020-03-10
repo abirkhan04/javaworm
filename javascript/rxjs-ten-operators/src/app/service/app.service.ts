@@ -14,6 +14,11 @@ export class AppService {
     return of(items);
   }
 
+  public getItemFromItems(): Observable<Item> {
+    const items: Item[] = Items();
+    return from(items);
+  }
+
   public getCategories(): Observable<Category[]> {
     const categories: Category[] =  Categories();
     return of(categories);
