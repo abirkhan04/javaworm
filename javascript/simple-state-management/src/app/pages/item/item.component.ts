@@ -23,7 +23,7 @@ export class ItemComponent implements OnInit {
   }
 
   public addItem(): void {
-    const item : Item = {id: Math.floor(Math.random()*100).toString(), name: 'Test Name ' + Math.floor(Math.random()*100).toString()};
+    const item: Item = {id: Math.floor(Math.random()*100).toString(), name: 'Test Name ' + Math.floor(Math.random()*100).toString()};
     this.itemService.addItem(item).subscribe((items)=>{
        this.items = items;
        this.changeDetector.detectChanges();
