@@ -31,7 +31,7 @@ export class AppComponent implements OnInit {
   public ngOnInit(): void {
     this.items$ = this.appService.getCategoryById(
       this.categoryId).pipe(mergeMap(category => this.appService.getItemByCategory(category.id)));
-    this.checkMergeMap();
+    this.checkMap();
     this.checkSwitchMap();
     this.checkConcatMap();
     this.checkTake();
@@ -39,7 +39,7 @@ export class AppComponent implements OnInit {
     this.checkTakeUntil();
   }
 
-  public checkMergeMap(): void {
+  public checkMap(): void {
     from([1, 2, 3, 4]).pipe(
       map(param => this.getData(param))
     ).subscribe(val => val.subscribe(data => console.log('Only map-->', data)));
@@ -92,12 +92,11 @@ export class AppComponent implements OnInit {
 
   public checkTakeUntil(): void {
     const numberSource = interval(1000);
-    const isEven = val => val % 2 === 0;
-    const evenSource = numberSource.pipe(filter(isEven));
-    const countofEvenNumber = evenSource.pipe(scan((acc, _) => acc + 1, 0));
-    const fiveEvenNumbers = countofEvenNumber.pipe(filter(val => val > 5));
-    const exampleEvent = evenSource.pipe(
-      withLatestFrom(countofEvenNumber), map(([val, count]) => `Even number (${count}) : ${val}`), takeUntil(fiveEvenNumbers));
+    const oddSource = numberSource.pipe(filter( val => val % 2 === 1));
+    const countofOddNumber = oddSource.pipe(scan((acc, _) => acc + 1, 0));
+    const fiveOddNumbers = countofOddNumber.pipe(filter(val => val > 5));
+    const exampleEvent = oddSource.pipe(
+      withLatestFrom(countofOddNumber), map(([val, count]) => `Odd numbers (${count}) : ${val}`), takeUntil(fiveOddNumbers));
     exampleEvent.subscribe((val) => console.log('Take Until test -->', val));
   }
 }
