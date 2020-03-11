@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AppService } from './service/app.service';
 import { Category, Item } from './app-interfaces';
-import { timer, combineLatest } from 'rxjs';
+import { timer, combineLatest, fromEvent } from 'rxjs';
 import {
   mergeMap, delay, map, switchAll,
   switchMap, concatMap, withLatestFrom, take, pluck, filter, scan, takeUntil, mergeAll, catchError
@@ -41,6 +41,11 @@ export class AppComponent implements OnInit {
     this.checkTakeUntil();
     this.checkCombinedLatest();
     this.checkCatchError();
+    this.checkOnMouseClick();
+  }
+  public checkOnMouseClick() {
+    const source = fromEvent(document, 'click');
+    const subscribe = source.subscribe(event => console.log(`Event time: ${event.timeStamp}`));
   }
 
   public checkMap(): void {
