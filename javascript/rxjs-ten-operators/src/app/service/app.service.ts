@@ -31,6 +31,11 @@ export class AppService {
   public getItemByCategory(categoryId: string): Observable<Item[]> {
     return of(Items().filter((item) => item.category.id === categoryId));
   }
+
+  public forCatchError(): Observable<any> {
+    // throw new Error('Test Error');
+    return of({});
+  }
 }
 
 function Items(): Item[] {

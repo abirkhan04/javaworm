@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { AppService } from './service/app.service';
 import { Category, Item } from './app-interfaces';
+import { timer, combineLatest } from 'rxjs';
 import {
   mergeMap, delay, map, switchAll,
-  switchMap, concatMap, withLatestFrom, take, pluck, filter, scan, takeUntil, mergeAll
+  switchMap, concatMap, withLatestFrom, take, pluck, filter, scan, takeUntil, mergeAll, catchError
 } from 'rxjs/operators';
 import { Observable, of, from, interval } from 'rxjs';
+import { ajax } from 'rxjs/ajax';
 
 @Component({
   selector: 'app-root',
@@ -37,6 +39,8 @@ export class AppComponent implements OnInit {
     this.checkTake();
     this.checkPluck();
     this.checkTakeUntil();
+    this.checkCombinedLatest();
+    this.checkCatchError();
   }
 
   public checkMap(): void {
@@ -86,17 +90,41 @@ export class AppComponent implements OnInit {
 
   public checkPluck(): void {
     this.appService.getItemFromItems().pipe(pluck('name')).subscribe((item) => {
-      console.log('name only here -->', item);
+      console.log(`Name only here --> ${item}`);
     });
   }
 
   public checkTakeUntil(): void {
     const numberSource = interval(1000);
-    const oddSource = numberSource.pipe(filter( val => val % 2 === 1));
+    const oddSource = numberSource.pipe(filter(val => val % 2 === 1));
     const countofOddNumber = oddSource.pipe(scan((acc, _) => acc + 1, 0));
     const fiveOddNumbers = countofOddNumber.pipe(filter(val => val > 5));
     const exampleEvent = oddSource.pipe(
       withLatestFrom(countofOddNumber), map(([val, count]) => `Odd numbers (${count}) : ${val}`), takeUntil(fiveOddNumbers));
-    exampleEvent.subscribe((val) => console.log('Take Until test -->', val));
+    exampleEvent.subscribe((val) => console.log(`Take Until test : ${val}`));
+  }
+
+  public checkCombinedLatest(): void {
+    const timer1 = timer(1000, 3000);
+    const timer2 = timer(2000, 4000);
+
+    combineLatest(timer1, timer2).subscribe(([value1, value2]) => {
+      console.log(`Timer 1 : ${value1} and Timer 2 ${value2}: `);
+    });
+  }
+
+  public checkCatchError(): void {
+    const data = ajax('/api/test').pipe(map((response) => {
+      if (!response) {
+        throw new Error('No response');
+      }
+      return response;
+    }),
+      catchError(err => of())
+    );
+    data.subscribe({
+      next(x) { console.log('data:', x) },
+      error(err) { console.log('Error already caught') }
+    });
   }
 }
