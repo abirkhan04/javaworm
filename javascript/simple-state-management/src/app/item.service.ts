@@ -1,34 +1,37 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Observable, of, BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ItemService {
 
-  public items: Item[] = [];
+  public readonly behaviourItems: BehaviorSubject<Item[]> = new BehaviorSubject<Item[]>([]);
 
   constructor() { }
 
   public addItem(item: Item): Observable<Item[]> {
-    this.items = [...this.items, item];
-    return of(this.items);
+    let items = this.behaviourItems.getValue();
+    items = [...items , item];
+    this.behaviourItems.next(items);
+    return this.behaviourItems;
   }
 
   public getItems(): Observable<Item[]> {
-    return of(this.items);
+    return this.behaviourItems;
   }
 
-  public deleteItem(id: string) : Observable<Item[]> {
-    this.items.splice(this.items.findIndex((item)=> item.id === id), 1 );
-    return of(this.items);
+  public deleteItem(id: string): Observable<Item[]> {
+    const items = this.behaviourItems.getValue();
+    items.splice(items.findIndex((item) => item.id === id), 1 );
+    return this.behaviourItems;
   }
 
-  public saveItem(updatedItem: Item) : Observable<Item[]> {
-    this.items.find((item)=>item.id === updatedItem.id)[0] = updatedItem;
-    return of(this.items);
+  public saveItem(updatedItem: Item): Observable<Item[]> {
+    const items = this.behaviourItems.getValue();
+    items.find((item) => item.id === updatedItem.id)[0] = updatedItem;
+    return this.behaviourItems;
   }
-
 }
 
 export interface Item {

@@ -1,0 +1,11 @@
+server:
+  port: 8081
+
+user:
+  oauth:
+    clientId: clientapp
+    clientSecret: 123456
+    redirectUris: http://localhost:8080/login/oauth2/code
+    user:
+      username: abir
+      password: 123456

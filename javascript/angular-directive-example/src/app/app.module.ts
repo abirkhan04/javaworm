@@ -3,14 +3,16 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { DomParentComponent } from './pages/dom-parent/dom-parent.component';
-import { DomNeighborComponent } from './pages/dom-neighbor/dom-neighbor.component';
+import { ErrorDirective } from './directives/error.directive';
+import { CustomIfDirective } from './directives/custom-if.directive';
+import { ChildComponent } from './child/child.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    DomParentComponent,
-    DomNeighborComponent
+    ErrorDirective,
+    CustomIfDirective,
+    ChildComponent
   ],
   imports: [
     BrowserModule,
