@@ -5,12 +5,14 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { DomParentComponent } from './pages/dom-parent/dom-parent.component';
 import { DomNeighborComponent } from './pages/dom-neighbor/dom-neighbor.component';
+import { AddClassDirective } from './directives/add-class.directive';
 
 @NgModule({
   declarations: [
     AppComponent,
     DomParentComponent,
-    DomNeighborComponent
+    DomNeighborComponent,
+    AddClassDirective
   ],
   imports: [
     BrowserModule,

@@ -1,5 +1,6 @@
 import { Component, OnInit, ElementRef,
     ViewChild, ViewChildren, QueryList, AfterViewInit, ContentChildren, ContentChild, AfterContentInit } from '@angular/core';
+import { AddClassDirective } from 'src/app/directives/add-class.directive';
 
 @Component({
   selector: 'app-dom-parent',
@@ -11,13 +12,14 @@ export class DomParentComponent implements OnInit , AfterViewInit, AfterContentI
   constructor(private elementRef: ElementRef) { }
 
   @ViewChild('child', {read: ElementRef, static: true}) child: ElementRef;
+  @ViewChild(AddClassDirective , {read: ElementRef, static: true}) byRenderer: ElementRef;
   @ViewChildren('p') ps: QueryList<any>;
   @ContentChild('insideNgContent', {read: ElementRef, static: true}) contentChild: ElementRef;
 
   public ngOnInit(): void {
     console.log('Native Element', this.elementRef.nativeElement);
+    console.log('By Renderer', this.byRenderer.nativeElement);
     console.log('Native Element of a child', this.child.nativeElement);
-    console.log('Children here', this.ps);
   }
 
   public ngAfterViewInit(): void {
