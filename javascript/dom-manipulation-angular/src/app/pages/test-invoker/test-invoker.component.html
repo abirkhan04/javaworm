@@ -1,3 +1,15 @@
-<app-test [message]="'Test message from invoker'">
-    <p>This is projected template</p>
+<app-test [message]="'Single Slot:'">
+    <p>This is projected p</p>
 </app-test>
+<br><br>
+<app-test [message]="'Multi Slot:'">
+    <p>This is projected p</p>
+    <button>Test Button</button>
+</app-test>
+<br><br><br>
+<p>
+    <app-test [message]="'Multiple content with selectors:'">
+        <p class="paragraph">Content projected with class selector</p>
+        <div>This is projected div</div>
+    </app-test>
+</p>

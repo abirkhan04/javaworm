@@ -7,7 +7,9 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class TestComponent {
 
-  @Input() public message: string = 'Test Message';
+  @Input()
+  // tslint:disable-next-line: no-inferrable-types
+  public message: string = 'Test Message';
 
   constructor() { }
 
