@@ -31,9 +31,6 @@ export function testComponent(_options: Schema): Rule {
     if (_options.path === undefined) {
       _options.path = `${project.sourceRoot}/${projectType}`;
     }
-    // const defaultProjectPath = buildDefaultPath(project);
-    //const parsedPath = parseName(defaultProjectPath, _options.project);
-    // const { path } = parsedPath;
     const sourceTemplates = url('./files');
     const sourceParameterizedTemplates = apply(sourceTemplates, [
       template({
