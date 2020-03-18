@@ -1,7 +1,7 @@
 import { Rule, SchematicContext, Tree, url, apply, template, mergeWith, SchematicsException, move } from '@angular-devkit/schematics';
 import { getWorkspace } from '@schematics/angular/utility/config';
-import { parseName} from '@schematics/angular/utility/parse-name';
-import { buildDefaultPath} from '@schematics/angular/utility/project';
+// import { parseName} from '@schematics/angular/utility/parse-name';
+// import { buildDefaultPath} from '@schematics/angular/utility/project';
 import { join, normalize } from 'path';
 import { strings } from '@angular-devkit/core';
 
@@ -25,17 +25,22 @@ export function testComponent(_options: Schema): Rule {
       throw new SchematicsException("Not an Angular CLI workspace");
     }
     const workspaceConfiguration = JSON.parse(workspaceConfigurationBuffer.toString());
-    const project = _options.project || workspaceConfiguration.defaultProject;
-    const defaultProjectPath = buildDefaultPath(project);
-    const parsedPath = parseName(defaultProjectPath, _options.project);
-    const { path } = parsedPath;
+    const project =  workspaceConfiguration.projects.Test;
+    const projectType = project.projectType === 'application' ? 'app' : 'libs';
+
+    if (_options.path === undefined) {
+      _options.path = `${project.sourceRoot}/${projectType}`;
+    }
+    // const defaultProjectPath = buildDefaultPath(project);
+    //const parsedPath = parseName(defaultProjectPath, _options.project);
+    // const { path } = parsedPath;
     const sourceTemplates = url('./files');
     const sourceParameterizedTemplates = apply(sourceTemplates, [
       template({
         ..._options,
         ...strings,
       }),
-      move(path, "")
+      move(normalize(_options.path as string))
     ]);
     return mergeWith(sourceParameterizedTemplates)(tree, _context);
   };
@@ -44,4 +49,5 @@ export function testComponent(_options: Schema): Rule {
 export interface Schema {
   name: string;
   project: string;
+  path: string;
 }
