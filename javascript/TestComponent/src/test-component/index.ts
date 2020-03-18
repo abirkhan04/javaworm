@@ -1,10 +1,10 @@
-import { Rule, SchematicContext, Tree, url, apply, template, mergeWith } from '@angular-devkit/schematics';
+import { Rule, SchematicContext, Tree, url, apply, template, mergeWith, SchematicsException, move } from '@angular-devkit/schematics';
 import { getWorkspace } from '@schematics/angular/utility/config';
+import { parseName} from '@schematics/angular/utility/parse-name';
+import { buildDefaultPath} from '@schematics/angular/utility/project';
 import { join, normalize } from 'path';
 import { strings } from '@angular-devkit/core';
 
-// You don't have to export the function as default. You can also have more than one rule factory
-// per file.
 export function setupOptions(host: Tree, options: any): Tree {
   const workspace = getWorkspace(host);
   if (!options.project) {
@@ -17,21 +17,31 @@ export function setupOptions(host: Tree, options: any): Tree {
 
 
 export function testComponent(_options: Schema): Rule {
-  return (_tree: Tree, _context: SchematicContext) => {
+  return (tree: Tree, _context: SchematicContext) => {
     // const { name } = _options;
     // tree.create('hello.js', `console.log('Hello ${name}!')`);
+    const workspaceConfigurationBuffer = tree.read("angular.json");
+    if(!workspaceConfigurationBuffer) {
+      throw new SchematicsException("Not an Angular CLI workspace");
+    }
+    const workspaceConfiguration = JSON.parse(workspaceConfigurationBuffer.toString());
+    const project = _options.project || workspaceConfiguration.defaultProject;
+    const defaultProjectPath = buildDefaultPath(project);
+    const parsedPath = parseName(defaultProjectPath, _options.project);
+    const { path } = parsedPath;
     const sourceTemplates = url('./files');
     const sourceParameterizedTemplates = apply(sourceTemplates, [
       template({
         ..._options,
         ...strings,
-      })
+      }),
+      move(path, "")
     ]);
-    return mergeWith(sourceParameterizedTemplates);
+    return mergeWith(sourceParameterizedTemplates)(tree, _context);
   };
 }
 
 export interface Schema {
   name: string;
-  project?: string;
+  project: string;
 }

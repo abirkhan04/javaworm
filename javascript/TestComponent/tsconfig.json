@@ -19,7 +19,9 @@
     "skipLibCheck": true,
     "sourceMap": true,
     "strictNullChecks": true,
+    "experimentalDecorators": true,
     "target": "es6",
+    "allowJs": true,
     "types": [
       "jasmine",
       "node"
