@@ -61,7 +61,6 @@ public class Java8streams {
 
 		System.out.println(java8streams.isNumberGreaterThanANumber());
 		java8streams.findFirstAndAnyDemo();
-
 	}
 
 }
