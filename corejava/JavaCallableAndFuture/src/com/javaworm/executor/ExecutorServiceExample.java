@@ -49,5 +49,6 @@ public class ExecutorServiceExample {
 				e.printStackTrace();
 			}
 		});
+		executorService.shutdown();
 	}
 }
