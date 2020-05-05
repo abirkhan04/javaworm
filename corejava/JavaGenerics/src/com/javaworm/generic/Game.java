@@ -1,5 +1,5 @@
 package com.javaworm.generic;
 
-public interface Game<U> {
-	public void makeGame(U parameter);
+public interface Game<T> {
+	public void makeGame(T parameter);
 }
