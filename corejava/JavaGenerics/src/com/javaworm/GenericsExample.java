@@ -1,9 +1,8 @@
 package com.javaworm;
 
 import java.time.LocalDate;
-
 import com.javaworm.entity.FootBall;
-import com.javaworm.generic.TestGeneric;
+import com.javaworm.generics.TestGeneric;
 
 public class GenericsExample {
 	public static void main(String args[]) {

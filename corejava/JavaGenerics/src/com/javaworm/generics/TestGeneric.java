@@ -1,4 +1,6 @@
-package com.javaworm.generic;
+package com.javaworm.generics;
+
+import java.util.List;
 
 public class TestGeneric<T, S> {
 
@@ -28,5 +30,12 @@ public class TestGeneric<T, S> {
 
 	public boolean compareParameters() {
 		return parameter1 == parameter2;
+	}
+
+	public static <T> List<T> addArrayToAList(T[] arrayItems, List<T> collection) {
+		for (T a : arrayItems) {
+			collection.add(a);
+		}
+		return collection;
 	}
 }

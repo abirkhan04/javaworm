@@ -1,8 +1,7 @@
 package com.javaworm.entity;
 
 import java.time.LocalDate;
-
-import com.javaworm.generic.Game;
+import com.javaworm.generics.Game;
 
 public class FootBall implements Game<FootBall> {
 
