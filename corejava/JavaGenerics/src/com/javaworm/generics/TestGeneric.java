@@ -32,10 +32,9 @@ public class TestGeneric<T, S> {
 		return parameter1 == parameter2;
 	}
 
-	public static <T> List<T> addArrayToAList(T[] arrayItems, List<T> collection) {
+	public static <T> void addArrayToAList(T[] arrayItems, List<T> collection) {
 		for (T a : arrayItems) {
 			collection.add(a);
 		}
-		return collection;
 	}
 }
