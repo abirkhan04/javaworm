@@ -16,8 +16,7 @@ public class GenericsExample {
 		FootBall footBall = new FootBall(LocalDate.now(), "Dhaka");
 		footBall.makeGame(footBall);
 
-		GenericDemo<String> genericDemo = new GenericDemo<String>();
-		genericDemo.set("Test");
+		GenericDemo<String> genericDemo = new GenericDemo<String>("Test");
 		String t = genericDemo.get();
 		logger.info("T: " + t);
 	}
