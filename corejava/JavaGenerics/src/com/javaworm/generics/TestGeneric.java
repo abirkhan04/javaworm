@@ -37,4 +37,13 @@ public class TestGeneric<T, S> {
 			collection.add(a);
 		}
 	}
+
+	public static Number sum(List<? extends Number> numbers) {
+		double s = 0.0;
+		for (Number n : numbers) {
+			s += n.doubleValue();
+		}
+		return s;
+	}
+
 }
