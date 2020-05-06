@@ -3,7 +3,7 @@ package com.javaworm.entity;
 import java.time.LocalDate;
 import com.javaworm.generics.Game;
 
-public class FootBall implements Game<FootBall> {
+public class FootBall implements Game<FootBall, String> {
 
 	private LocalDate time;
 	private String venue;
@@ -16,6 +16,12 @@ public class FootBall implements Game<FootBall> {
 	@Override
 	public void makeGame(FootBall footBall) {
 		System.out.println("The game is at " + footBall.getTime() + " and the venue is " + footBall.getVenue());
+	}
+
+	@Override
+	public void playGames(FootBall parameter1, String parameter2) {
+		// TODO Auto-generated method stub
+		System.out.println("Yet to be implemented ...");
 	}
 
 	public LocalDate getTime() {

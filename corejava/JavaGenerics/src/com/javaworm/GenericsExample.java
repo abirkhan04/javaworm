@@ -15,7 +15,7 @@ public class GenericsExample {
 
 		GenericDemo<String> genericDemo = new GenericDemo<String>();
 		genericDemo.set("Test");
-		System.out.println("The value is: " + genericDemo.get());
+		String t =  genericDemo.get();
 	}
 
 }
