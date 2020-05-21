@@ -67,7 +67,6 @@ public class JavaFXSimpleEditor extends Application {
 		Menu helpMenu = new Menu("Help");
 		MenuItem aboutMenu = new MenuItem("About Textpad");
 		helpMenu.getItems().addAll(aboutMenu);
-
 		topMenu.getMenus().addAll(fileMenu, editMenu, helpMenu);
 
 		text = new TextArea();
@@ -75,6 +74,12 @@ public class JavaFXSimpleEditor extends Application {
 		text.setPrefColumnCount(150);
 		text.setPrefWidth(200);
 		text.setWrapText(true);
+
+		text.textProperty().addListener((observable, oldValue, newValue) -> {
+			System.out.println("Textfield Changed from " + oldValue + " to " + newValue);
+			newValue = "2";
+			text.setText(newValue);
+		});
 
 		undoMenu.setOnAction(event -> {
 			text.undo();
@@ -133,7 +138,7 @@ public class JavaFXSimpleEditor extends Application {
 
 			FileChooser fileChooser = new FileChooser();
 			fileChooser.setTitle("Open a File");
-			fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("TXT", "*.txt"));
+			fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("*", "*.txt", "*.java"));
 			File file = fileChooser.showOpenDialog(primaryStage);
 			if (file == null)
 				return;
@@ -196,7 +201,7 @@ public class JavaFXSimpleEditor extends Application {
 
 	private void saveAs() {
 		FileChooser fileChooser = new FileChooser();
-		FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("TXT files (*.txt)", "*.txt");
+		FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("*", "*.txt", "*.java");
 		fileChooser.getExtensionFilters().add(extFilter);
 		fileChooser.setTitle("Save File");
 		File file = fileChooser.showSaveDialog(primaryStage);
