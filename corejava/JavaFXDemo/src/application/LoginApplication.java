@@ -45,8 +45,8 @@ public class LoginApplication extends Application {
 		hBox.getChildren().addAll(button2, button1);
 		gridPane.add(hBox, 1, 2);
 
-		button1.setStyle("-fx-background-color: darkslateblue; -fx-text-fill: white;");
-		button2.setStyle("-fx-background-color: darkslateblue; -fx-text-fill: white;");
+		button1.setStyle("-fx-background-color: darkgreen; -fx-text-fill: white;");
+		button2.setStyle("-fx-background-color: darkgreen; -fx-text-fill: white;");
 
 		text1.setStyle("-fx-font: normal bold 20px 'serif' ");
 		text2.setStyle("-fx-font: normal bold 20px 'serif' ");
