@@ -14,23 +14,20 @@ public class UserRoleService {
 	@Autowired
 	UserRoleRepo userRoleRepo;
 
-
 	@Secured("ROLE_VIEWER")
-	public String getUsername() {
-	    SecurityContext securityContext = SecurityContextHolder.getContext();
-	    return securityContext.getAuthentication().getName();
+	public String getUserName() {
+		SecurityContext securityContext = SecurityContextHolder.getContext();
+		return securityContext.getAuthentication().getName();
 	}
 
+	@Secured({ "ROLE_USER" })
+	public boolean isValidUserName(String username) {
+		return userRoleRepo.isValidUsername(username);
+	}
 
-    @Secured({ "ROLE_USER" })
-    public boolean isValidUsername(String username) {
-        return userRoleRepo.isValidUsername(username);
-    }
-    
-    
-    @Secured({ "ROLE_VIEWER" })
-    public boolean unAuthorizedForUserRole(String username) {
-        return userRoleRepo.isValidUsername(username);
-    }
+	@Secured({ "ROLE_VIEWER" })
+	public boolean unAuthorizedForUserRole(String username) {
+		return userRoleRepo.isValidUsername(username);
+	}
 
 }

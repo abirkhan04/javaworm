@@ -14,36 +14,30 @@ import com.javaworm.service.UserRoleService;
 public class MethodSecurityController {
 
 	@Autowired
-	UserRoleService userRoleService;
+	private UserRoleService userRoleService;
 
-	@RequestMapping(value = "/testusername", method = RequestMethod.GET)
+	@RequestMapping(value = "/test-user-name", method = RequestMethod.GET)
 	public @ResponseBody String testEndpoint() {
 
-		Authentication authentication = SecurityContextHolder.getContext()
-				.getAuthentication();
-		String currentPrincipalName = authentication.getName();
-		boolean isValid = userRoleService.isValidUsername(currentPrincipalName);
-		if (isValid) {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		if (userRoleService.isValidUserName(authentication.getName())) {
 			return "username is present in the repository";
 		} else {
 			return "username is not present in the repository";
 		}
 	}
 
-	@RequestMapping(value = "/testunauthorizeduser", method = RequestMethod.GET)
+	@RequestMapping(value = "/test-unauthorized-user", method = RequestMethod.GET)
 	public @ResponseBody String testAuthorizedUser() {
 
-		Authentication authentication = SecurityContextHolder.getContext()
-				.getAuthentication();
-		String currentPrincipalName = authentication.getName();
-		userRoleService.unAuthorizedForUserRole(currentPrincipalName);
-
-		return "User is authorized";
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		userRoleService.unAuthorizedForUserRole(authentication.getName());
+		return "User is Authorized";
 	}
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public @ResponseBody String homeEndpoint() {
-		return "Hello From Javaworm.com";
+		return "Hello From java-worm.com";
 	}
 
 }
