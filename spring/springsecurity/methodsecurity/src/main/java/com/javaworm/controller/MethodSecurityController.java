@@ -20,7 +20,7 @@ public class MethodSecurityController {
 	public @ResponseBody String testEndpoint() {
 
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		if (userRoleService.isValidUserName(authentication.getName())) {
+		if (userRoleService.isValidUsername(authentication.getName())) {
 			return "username is present in the repository";
 		} else {
 			return "username is not present in the repository";

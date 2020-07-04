@@ -21,7 +21,7 @@ public class UserRoleService {
 	}
 
 	@Secured({ "ROLE_USER" })
-	public boolean isValidUserName(String username) {
+	public boolean isValidUsername(String username) {
 		return userRoleRepo.isValidUsername(username);
 	}
 

@@ -43,7 +43,7 @@ public class MethodSecurityApplicationTests {
     @Test
     @WithMockUser(roles = { "USER" })
     public void givenUsernameJohn_whenCallIsValidUsername_thenReturnTrue() {
-        boolean isValid = userRoleService.isValidUserName("Nazrul Islam");
+        boolean isValid = userRoleService.isValidUsername("Nazrul Islam");
         assertEquals(true, isValid);
    }
 
