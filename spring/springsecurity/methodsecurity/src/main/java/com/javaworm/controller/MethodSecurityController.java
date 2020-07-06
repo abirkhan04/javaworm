@@ -16,7 +16,7 @@ public class MethodSecurityController {
 	@Autowired
 	private UserRoleService userRoleService;
 
-	@RequestMapping(value = "/test-user-name", method = RequestMethod.GET)
+	@RequestMapping(value = "/test-username", method = RequestMethod.GET)
 	public @ResponseBody String testEndpoint() {
 
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
