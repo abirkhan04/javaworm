@@ -9,9 +9,9 @@ public class Person {
 	 *
 	 */
 	@Id
-	int id;
-	String name;
-	String age;
+	private String id;
+	private String name;
+	private String age;
 
 	public Person() {
 
@@ -22,11 +22,11 @@ public class Person {
 		this.age = age;
 	}
 
-	public int getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
@@ -50,5 +50,5 @@ public class Person {
 	public String toString() {
 		return "Users [id=" + id + ", name=" + name + ", age=" + age + "]";
 	}
-
+	
 }

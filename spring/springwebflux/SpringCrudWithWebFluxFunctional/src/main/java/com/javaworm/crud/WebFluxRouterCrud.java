@@ -14,14 +14,14 @@ public class WebFluxRouterCrud {
 	@Bean
 	public RouterFunction<ServerResponse> route(CRUDHandler handler) {
 		return RouterFunctions
-				.route(RequestPredicates.GET("/person").and(RequestPredicates.accept(MediaType.APPLICATION_JSON)),
-						handler::listAllPersons)
-				.andRoute(RequestPredicates.POST("/person").and(RequestPredicates.accept(MediaType.TEXT_PLAIN)),
-						handler::createPerson)
-				.andRoute(RequestPredicates.PUT("/person/{id}").and(RequestPredicates.accept(MediaType.APPLICATION_JSON)), 
-						handler::updatePerson)
-				.andRoute(RequestPredicates.DELETE("/person/{id}").and(RequestPredicates.accept(MediaType.APPLICATION_JSON)), 
-						handler::deletePerson);
+		  .route(RequestPredicates.GET("/persons").and(RequestPredicates.accept(MediaType.APPLICATION_JSON)),
+			handler::listPersons)
+		  .andRoute(RequestPredicates.POST("/person").and(RequestPredicates.accept(MediaType.APPLICATION_JSON)),
+		    handler::insertPerson)
+		  .andRoute(RequestPredicates.PUT("/person/{id}").and(RequestPredicates.accept(MediaType.APPLICATION_JSON)), 
+			handler::updatePerson)
+		  .andRoute(RequestPredicates.DELETE("/person/{id}").and(RequestPredicates.accept(MediaType.APPLICATION_JSON)), 
+			handler::deletePerson);
 	}
 
 }
