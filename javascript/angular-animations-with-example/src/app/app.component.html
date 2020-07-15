@@ -1,4 +1,18 @@
-<div @myInsertRemoveTrigger *ngIf="isShown" class="insert-remove-container">
+<div @InsertRemoveTrigger *ngIf="isShown" class="insert-remove-container">
   <p>The box is inserted</p>
 </div>
-<button (click)="toggle()">Toggle</button>
+<button (click)="toggleBox()">Toggle Box</button>
+<div [@CardStagger]="cards.length" class="card-wrapper" *ngIf="cardVisible">
+  <div class="card" *ngFor="let card of cards">
+    {{card}}
+  </div>
+</div>
+<button (click)="toggleCards()">Toggle Cards</button>
+<div [@ThrowACard]="isThrown? 'thrown' : 'onHand'" class="single-card">
+    <p *ngIf="!isThrown">Throw me</p>
+    <p *ngIf="isThrown"> I am thrown</p>
+</div>
+<button (click)="throwACard()">
+    <span *ngIf="!isThrown">Throw the Card</span>
+    <span *ngIf="isThrown">Return the Card</span>
+</button>
