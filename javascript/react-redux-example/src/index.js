@@ -47,15 +47,11 @@ const Navigation = ({navItem}) => {
   )
 }
 
-class  SideNavigation extends React.Component {
-  constructor(props) {
-    super();
-  }
-  render() {
+const SideNavigation = ({navItems}) => {
   return (
     <div style={{width: "200px", backgroundColor: "cyan"}}>
       {
-        this.props.navItems.map((navItem)=> {
+        navItems.map((navItem)=> {
           return (
             <Navigation key={navItem.title} navItem={navItem}/>
           )
@@ -63,7 +59,6 @@ class  SideNavigation extends React.Component {
       }
     </div>
   )
-  }
 }
 
 const App = () => {
