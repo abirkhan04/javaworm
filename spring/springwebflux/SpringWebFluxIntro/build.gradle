@@ -3,7 +3,7 @@ buildscript {
 		springBootVersion = '2.1.1.RELEASE'
 	}
 	repositories {
-		maven { url = "http://repo.maven.apache.org/maven2" }
+		maven { url = "https://repo.maven.apache.org/maven2" }
 	}
 	dependencies {
 		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
@@ -20,7 +20,7 @@ version = '0.0.1-SNAPSHOT'
 sourceCompatibility = 1.8
 
 repositories {
-	maven { url = "http://repo.maven.apache.org/maven2" }
+	maven { url = "https://repo.maven.apache.org/maven2" }
 }
 
 
