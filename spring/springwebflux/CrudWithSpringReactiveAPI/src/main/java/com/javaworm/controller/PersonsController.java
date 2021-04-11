@@ -22,7 +22,7 @@ import reactor.core.publisher.Mono;
 public class PersonsController {
 
 	@Autowired
-	PersonRepository personRepository;
+	private PersonRepository personRepository;
 
 	@GetMapping
 	public Flux<Person> getAllUser() {
@@ -30,13 +30,13 @@ public class PersonsController {
 	}
 
 	@PostMapping
-	public Mono<Person> createUser(@RequestBody Person person) {
+	public Mono<Person> createPerson(@RequestBody Person person) {
 		return personRepository.save(person);
 	}
 
 	@GetMapping("/{id}")
 	public Mono<ResponseEntity<Person>> getUserById(@PathVariable(value = "id") int userId) {
-		return personRepository.findById(userId).map(savedTweet -> ResponseEntity.ok(savedTweet))
+		return personRepository.findById(userId).map(person -> ResponseEntity.ok(person))
 				.defaultIfEmpty(ResponseEntity.notFound().build());
 	}
 
@@ -52,4 +52,5 @@ public class PersonsController {
 		person.setId(userId);
 		return personRepository.delete(person);
 	}
+
 }

@@ -4,9 +4,7 @@ buildscript {
 	}
 
 	repositories {
-	    jcenter()
-		maven { url "https://repo1.maven.org/maven2/" }
-        maven { url "https://maven.springframework.org/release"}		
+       maven { url = "https://repo.maven.apache.org/maven2" }
 	}
 
 	dependencies {
@@ -15,12 +13,11 @@ buildscript {
 }
 
 plugins {
-    // Apply the java-library plugin to add support for Java Library
     id 'java-library'
 }
 
 repositories {
-    jcenter()
+     maven { url = "https://repo.maven.apache.org/maven2" }
 }
 
 apply plugin: 'java'
